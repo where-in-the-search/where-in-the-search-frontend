@@ -27,7 +27,7 @@ export async function getSessionCoordinates() {
 	const coordinateIDs = getRandomIdOrder();
 	let coordinatesArray = [];
 	for (let i of coordinateIDs) {
-		const newCoordinates = await request.get(`https://whispering-inlet-91926.herokuapp.com/coordinates/${i}`);
+		const newCoordinates = await request.get(`https://what-in-the-search.herokuapp.com/coordinates/${i}`);
 		const { lat, lon } = newCoordinates.body;
 
         coordinatesArray.push({ mapLat: lat, mapLon: lon });
@@ -51,19 +51,9 @@ function generateMapURL(lat, lon) {
 export async function getNewLocation() {
     const mapCoord = await getSessionCoordinates();
     
-    const response = await request.get(`https://whispering-inlet-91926.herokuapp.com/geo-data-location/${mapCoord[0].mapLat}&${mapCoord[0].mapLon}`);
-        
-    //we need to determine whether *any* property's value in the response is 'null'
-    //if anything is null: we call getNewLocation() again to get a new response
-    for (let property in response.body) {
-        console.log('BROOOOO', response.body[property])
-        if (response.body[property] === 'null') {
-            console.log('yoooooooooo' ,response.body[property])
-            getNewLocation();
-        }
-    }
+    const response = await request.get(`https://what-in-the-search.herokuapp.com/geo-data-location/${mapCoord[0].mapLat}&${mapCoord[0].mapLon}`);
 
-    //if nothing is null: continue as below with munging into the location object
+    console.log('BROOOOO', response.body)
 
     const { country, region, city, latitude, longitude, currency_symbol, sunrise, sunset, time_zone } = response.body;
 
@@ -82,7 +72,9 @@ export async function getNewLocation() {
     }
 }
 
-
+export function checkGuess(guess) {
+    //array of regex patterns or strings to match city/region/country
+}
 //
 // {
 //     country: 'USA',
