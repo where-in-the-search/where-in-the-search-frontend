@@ -1,6 +1,6 @@
 import request from 'superagent';
 
-const URL = 'https://whispering-inlet-91926.herokuapp.com'; //'http://localhost:3000'; 
+const URL = 'https://what-in-the-search.herokuapp.com'; //'http://localhost:3000'; 
 
 export async function postLocationGuesses(guesses, token) {
     const response = await request
