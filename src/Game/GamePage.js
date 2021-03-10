@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import './GamePage.css';
 import { postLocation, postLocationGuesses } from '../Utils/API-Utils.js';
 import { mungeGuess } from '../Utils/Munge-Utils.js';
-import { getNewLocation } from '../Utils/Game-Utils.js'
+import { getNewLocation, getSessionCoordinates } from '../Utils/Game-Utils.js'
 
 export default class GamePage extends Component {
     state = {
@@ -13,15 +13,17 @@ export default class GamePage extends Component {
         image_url: '',
         locationIndex: 0,
         mapLat: '',
-        mapLon: ''
-
+        mapLon: '', 
+        mapCoords: []
     }
 
 
     componentDidMount = async () => {
         this.setState({ loading: true });
 
-        const newLocation = await getNewLocation(this.state.locationIndex);
+        const newCoords = await getSessionCoordinates();
+
+        const newLocation = await getNewLocation(newCoords, this.state.locationIndex);
 
         // await postLocation(newLocation);
 
@@ -30,7 +32,8 @@ export default class GamePage extends Component {
                 image_url: newLocation.image_url,
                 mapLat: newLocation.latitude,
                 mapLon: newLocation.longitude,
-                loading: false
+                loading: false,
+                mapCoords: newCoords
             }
         );
     }
@@ -58,13 +61,13 @@ export default class GamePage extends Component {
         // const mungedGuess = mungeGuess();
 
         // postLocationGuesses(mungedGuess, this.props.user.token)
-
+        console.log(this.state.mapCoords)
         const updatedLocationIndex = this.state.locationIndex;
         this.setState({ locationIndex: updatedLocationIndex + 1})
-        if(this.state.locationIndex > 4) this.props.history.push('/results')
+        if(this.state.locationIndex >= 4) this.props.history.push('/results')
 
         //calls getrandomlatlon, getnewlocation, 
-        const newLocation = await getNewLocation(this.state.locationIndex);
+        const newLocation = await getNewLocation(this.state.mapCoords, this.state.locationIndex);
         console.log('IMAGE', newLocation.image_url);
 
         // resets state to default
@@ -81,7 +84,7 @@ export default class GamePage extends Component {
     }
 
     render() {
-
+        console.log(this.state.mapCoords)
         return (
             <main className="gameMain">
                 <div className="locationWrapper">

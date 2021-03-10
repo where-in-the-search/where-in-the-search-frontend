@@ -48,10 +48,9 @@ function generateMapURL(lat, lon) {
 //     return { mapLat: shortLat, mapLon: shortLon }
 // }
 
-export async function getNewLocation() {
-    const mapCoord = await getSessionCoordinates();
-    
-    const response = await request.get(`https://what-in-the-search.herokuapp.com/geo-data-location/${mapCoord[0].mapLat}&${mapCoord[0].mapLon}`);
+export async function getNewLocation(mapCoord, locationIndex) {
+    console.log(mapCoord)
+    const response = await request.get(`https://what-in-the-search.herokuapp.com/geo-data-location/${mapCoord[locationIndex].mapLat}&${mapCoord[locationIndex].mapLon}`);
 
     console.log('BROOOOO', response.body)
 
@@ -68,7 +67,7 @@ export async function getNewLocation() {
         sunset,
         time_zone,
         hints: ['thyt', 'gryt'],
-        image_url: generateMapURL(mapCoord[0].mapLat, mapCoord[0].mapLon)
+        image_url: generateMapURL(mapCoord[locationIndex].mapLat, mapCoord[locationIndex].mapLon)
     }
 }
 
