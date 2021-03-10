@@ -61,6 +61,7 @@ export default class GamePage extends Component {
 
         const updatedLocationIndex = this.state.locationIndex;
         this.setState({ locationIndex: updatedLocationIndex + 1})
+        if(this.state.locationIndex > 4) this.props.history.push('/results')
 
         //calls getrandomlatlon, getnewlocation, 
         const newLocation = await getNewLocation(this.state.locationIndex);
