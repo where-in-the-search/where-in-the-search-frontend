@@ -53,15 +53,7 @@ export function getLocationFromLocalStorage() {
 
         return emptyLocationArray;
     }
-
-    // try {
-    //     return JSON.parse(locations);
-
-    // } catch (e) {
-    //     return [];
-    // }
 }
-
 
 export function putLocationInLocalStorage(location) {
     const locationArray = getLocationFromLocalStorage();

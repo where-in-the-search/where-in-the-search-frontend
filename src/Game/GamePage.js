@@ -57,7 +57,7 @@ export default class GamePage extends Component {
 
     handleNextLocation = async (e) => {
         //needs to save location, the location guesses, found state
-        const { id, image_url, city, region, country, found } = this.state.locationObj;
+        const { id, image_url, city, region, country } = this.state.locationObj;
 
         const location = { id: id, image_url: image_url, city: city, region: region, country: country, found: this.state.found };
 
@@ -129,7 +129,14 @@ export default class GamePage extends Component {
                         </div>
                         : <div>
                             <button
-                                onClick={this.handleNextLocation}>go to next location</button>
+                                onClick={this.handleNextLocation}>
+                                {this.state.locationIndex >= 4
+                                    ? <span> go to results </span>
+                                    : <span> go to next location</span>
+                                }
+                            </button>
+
+
                         </div>}
 
 
