@@ -60,7 +60,7 @@ export default class GamePage extends Component {
         // const mungedGuess = mungeGuess();
 
         // postLocationGuesses(mungedGuess, this.props.user.token)
-        
+
         const updatedLocationIndex = this.state.locationIndex;
 
         this.setState({ locationIndex: updatedLocationIndex + 1 });
@@ -87,6 +87,8 @@ export default class GamePage extends Component {
     }
 
     render() {
+        const { city, region, country } = this.state.locationObj;
+        console.log(this.state.numberOfGuesses);
         return (
             <main className="gameMain">
                 <div className="locationWrapper">
@@ -101,8 +103,21 @@ export default class GamePage extends Component {
                         placeholder="guess here!"
                         onChange={this.handleCurrentGuess} />
 
-                    <button
-                        onClick={this.handleSubmitGuess}>Guess!</button>
+                    {this.state.numberOfGuesses > 0 && !this.state.found
+                        ? <button onClick={this.handleSubmitGuess}>Guess!</button>
+                        : <button className="hiddenButton"></button>
+                    }
+
+                    {/* { 
+                        ? <button className="hiddenButton"></button>
+                        : <button onClick={this.handleSubmitGuess}>Guess!</button>
+
+                    } */}
+
+
+                    {this.state.found && <p>You've found {city}, {region}, {country}!</p>}
+
+                    {!this.state.found && this.state.numberOfGuesses === 0 && <p>How tragic! This place remains a mystery.</p>}
 
                     <ul className="hintsWrapper">
                         <li>hint 1</li>
@@ -114,7 +129,7 @@ export default class GamePage extends Component {
                         ? <div className="feedbackWrapper">
                             <h4>Guesses remaining: {this.state.numberOfGuesses}</h4>
 
-                            <p>Your guess was this far off: {this.someFunction}</p>
+
                         </div>
                         : <div>
                             <button
@@ -124,7 +139,7 @@ export default class GamePage extends Component {
 
                 </div>
 
-            </main>
+            </main >
         )
     }
 }

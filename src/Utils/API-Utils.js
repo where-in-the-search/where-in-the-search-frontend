@@ -21,7 +21,7 @@ export async function postLocation(location) {
 
 export async function getLocationById(id) {
     const response = await request
-    .get(`${URL}/locations/${id}`)
+        .get(`${URL}/locations/${id}`)
 
-return response.body;
+    return response.body;
 }
