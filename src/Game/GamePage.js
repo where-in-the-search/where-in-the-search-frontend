@@ -13,7 +13,6 @@ export default class GamePage extends Component {
         locationIndex: 0,
         mapLat: '',
         mapLon: '',
-        mapCoords: [],
         locationObj: {}
     }
 
@@ -23,10 +22,10 @@ export default class GamePage extends Component {
 
         // const newCoords = await getSessionCoordinates();
 
-        const newLocation = await getNewLocation(newCoords, this.state.locationIndex);
+        const newLocation = await getNewLocation(this.state.locationIndex);
         // await postLocation(newLocation);
 
-        const updatedLocationIndex = this.state.locationIndex;
+        // const currentLocationIndex = this.state.locationIndex;
 
         this.setState(
             {
@@ -34,9 +33,8 @@ export default class GamePage extends Component {
                 mapLat: newLocation.latitude,
                 mapLon: newLocation.longitude,
                 loading: false,
-                mapCoords: newCoords,
                 locationObj: newLocation,
-                locationIndex: updatedLocationIndex + 1
+                // locationIndex: currentLocationIndex + 1
             }
         );
     }
@@ -62,13 +60,15 @@ export default class GamePage extends Component {
         // const mungedGuess = mungeGuess();
 
         // postLocationGuesses(mungedGuess, this.props.user.token)
-        console.log(this.state.mapCoords)
+        
         const updatedLocationIndex = this.state.locationIndex;
-        this.setState({ locationIndex: updatedLocationIndex + 1 })
-        if (this.state.locationIndex >= 4) this.props.history.push('/results')
+
+        this.setState({ locationIndex: updatedLocationIndex + 1 });
+
+        if (this.state.locationIndex >= 4) this.props.history.push('/results');
 
         //calls getrandomlatlon, getnewlocation, 
-        const newLocation = await getNewLocation(this.state.mapCoords, this.state.locationIndex);
+        const newLocation = await getNewLocation(this.state.locationIndex);
 
         //somewhere here we'll post to sessions
 
