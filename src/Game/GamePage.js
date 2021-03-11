@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import './GamePage.css';
 // import { mungeGuess } from '../Utils/Munge-Utils.js';
 import { getNewLocation, checkGuess } from '../Utils/Game-Utils.js'
+import { getLocationFromLocalStorage, putLocationInLocalStorage } from '../Utils/LocalStorage-Utils';
 
 export default class GamePage extends Component {
     state = {
@@ -56,10 +57,11 @@ export default class GamePage extends Component {
 
     handleNextLocation = async (e) => {
         //needs to save location, the location guesses, found state
+        const { id, image_url, city, region, country, found } = this.state.locationObj;
 
-        // const mungedGuess = mungeGuess();
+        const location = { id: id, image_url: image_url, city: city, region: region, country: country, found: this.state.found };
 
-        // postLocationGuesses(mungedGuess, this.props.user.token)
+        putLocationInLocalStorage(location);
 
         const updatedLocationIndex = this.state.locationIndex;
 
@@ -107,12 +109,6 @@ export default class GamePage extends Component {
                         ? <button onClick={this.handleSubmitGuess}>Guess!</button>
                         : <button className="hiddenButton"></button>
                     }
-
-                    {/* { 
-                        ? <button className="hiddenButton"></button>
-                        : <button onClick={this.handleSubmitGuess}>Guess!</button>
-
-                    } */}
 
 
                     {this.state.found && <p>You've found {city}, {region}, {country}!</p>}

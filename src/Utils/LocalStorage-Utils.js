@@ -1,13 +1,15 @@
 const USER = 'USER';
 const SESSION = 'SESSION';
+const LOCATIONS = 'LOCATIONS';
 
+const emptyLocationArray = [];
 
 export function getUserFromLocalStorage() {
     const user = localStorage.getItem(USER);
     try {
         return JSON.parse(user);
 
-    } catch(e) {
+    } catch (e) {
         return {
             email: '',
             id: '',
@@ -29,10 +31,44 @@ export function getSessionInfo() {
     try {
         return JSON.parse(session);
 
-    } catch(e) {
+    } catch (e) {
         return {
             name: '',
             character: ''
         }
     }
 }
+
+export function getLocationFromLocalStorage() {
+    const locations = localStorage.getItem(LOCATIONS);
+
+    if (locations) {
+        const parsedLocation = JSON.parse(locations);
+
+        return parsedLocation;
+    } else {
+        const stringEmptyLocationArray = JSON.stringify(emptyLocationArray);
+
+        localStorage.setItem(LOCATIONS, stringEmptyLocationArray);
+
+        return emptyLocationArray;
+    }
+
+    // try {
+    //     return JSON.parse(locations);
+
+    // } catch (e) {
+    //     return [];
+    // }
+}
+
+
+export function putLocationInLocalStorage(location) {
+    const locationArray = getLocationFromLocalStorage();
+    console.log(locationArray);
+    locationArray.push(location);
+    localStorage.setItem(LOCATIONS, JSON.stringify(locationArray));
+    //location id, image_url, city, region, country, found
+
+}
+
