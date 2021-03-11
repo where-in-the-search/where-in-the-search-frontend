@@ -4,13 +4,14 @@ import { storeSessionInfo } from '../Utils/LocalStorage-Utils.js';
 export default class HomePage extends Component {
     state = {
         name: '',
-        character: '',
-        date: new Date().toDateString()
+        character_id: '',
+        date: new Date().toDateString(),
+        profession: '' 
     }
 
     handleNameChange = (e) => this.setState({ name: e.target.value });
 
-    handleCharacterChange = (e) => this.setState({ character: e.target.value });
+    handleCharacterChange = (e) => this.setState({ character_id: e.target.value, profession: e.target.id });
 
     handleSignIn = (e) => this.props.history.push('/login');
 
@@ -45,7 +46,7 @@ export default class HomePage extends Component {
                             <input
                                 type="radio"
                                 name="character"
-                                value="ex-librarian"
+                                value="1"
                                 id="ex-librarian"
                                 onChange={this.handleCharacterChange} />
                             <label htmlFor="ex-librarian">
@@ -55,7 +56,7 @@ export default class HomePage extends Component {
                             <input
                                 type="radio"
                                 name="character"
-                                value="smuggler"
+                                value="2"
                                 id="smuggler"
                                 onChange={this.handleCharacterChange} />
                             <label htmlFor="smuggler">
@@ -65,7 +66,7 @@ export default class HomePage extends Component {
                             <input
                                 type="radio"
                                 name="character"
-                                value="chard farmer"
+                                value="3"
                                 id="farmer"
                                 onChange={this.handleCharacterChange} />
                             <label htmlFor="farmer">
@@ -75,7 +76,7 @@ export default class HomePage extends Component {
                             <input
                                 type="radio"
                                 name="character"
-                                value="pilot"
+                                value="4"
                                 id="pilot"
                                 onChange={this.handleCharacterChange} />
                             <label htmlFor="pilot">

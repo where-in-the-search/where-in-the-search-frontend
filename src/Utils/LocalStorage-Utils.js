@@ -34,8 +34,9 @@ export function getSessionInfo() {
     } catch (e) {
         return {
             name: '',
-            character: '',
-            date: ''
+            character_id: '',
+            date: '', 
+            profession: ''
         }
     }
 }
@@ -65,3 +66,15 @@ export function putLocationInLocalStorage(location) {
 
 }
 
+export function clearSessions() {
+    const sessionsObj = {
+        name: '',
+        character_id: '',
+        date: '', 
+        profession: ''
+    }
+
+    localStorage.setItem(SESSION, JSON.stringify(sessionsObj));
+
+    localStorage.setItem(LOCATIONS, JSON.stringify(emptyLocationArray));
+}
