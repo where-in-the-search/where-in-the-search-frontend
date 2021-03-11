@@ -63,7 +63,6 @@ export async function getNewLocation(index) {
 
     // const { country, region, city, latitude, longitude, currency_symbol, sunrise, sunset, time_zone } = response.body;
 
-    // return {
     //     country,
     //     region,
     //     city,
@@ -92,10 +91,12 @@ export function checkGuess(guess, locationObj) {
     if (upperCaseGuess === upperCaseCity || upperCaseGuess === upperCaseRegion) {
         console.log('NOOOOOOOO')
         return true
+
     } else if (upperCaseGuess.includes(upperCaseCity) || upperCaseGuess.includes(upperCaseRegion)) {
         return true
     } else return false;
 }
+
 //
 // {
 //     country: 'USA',
