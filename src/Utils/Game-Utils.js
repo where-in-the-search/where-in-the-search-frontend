@@ -67,12 +67,27 @@ export async function getNewLocation(mapCoord, locationIndex) {
         sunset,
         time_zone,
         hints: ['thyt', 'gryt'],
-        image_url: generateMapURL(mapCoord[locationIndex].mapLat, mapCoord[locationIndex].mapLon)
+        image_url: await generateMapURL(mapCoord[locationIndex].mapLat, mapCoord[locationIndex].mapLon)
     }
 }
 
-export function checkGuess(guess) {
+export function checkGuess(guess, locationObj) {
     //array of regex patterns or strings to match city/region/country
+    const {
+        region,
+        city
+    } = locationObj;
+
+    const upperCaseGuess = guess.toUpperCase();
+    const upperCaseRegion = region.toUpperCase();
+    const upperCaseCity = city.toUpperCase();
+
+    if (upperCaseGuess === upperCaseCity || upperCaseGuess === upperCaseRegion) {
+        console.log('NOOOOOOOO')
+        return true
+    } else if (upperCaseGuess.includes(upperCaseCity) || upperCaseGuess.includes(upperCaseRegion)) {
+        return true
+    } else return false;
 }
 //
 // {
