@@ -13,7 +13,7 @@ export default class GamePage extends Component {
         image_url: '',
         locationIndex: 0,
         mapLat: '',
-        mapLon: '', 
+        mapLon: '',
         mapCoords: [],
         locationObj: {}
     }
@@ -49,7 +49,7 @@ export default class GamePage extends Component {
     handleSubmitGuess = (e) => {
         const locationGuesses = this.state.guesses;
         locationGuesses.push(this.state.currentGuess);
-        this.setState({ guesses: locationGuesses, found: checkGuess(this.state.currentGuess, this.state.locationObj)});
+        this.setState({ guesses: locationGuesses, found: checkGuess(this.state.currentGuess, this.state.locationObj) });
 
         const updatedGuesses = this.state.numberOfGuesses - 1;
         this.setState({ numberOfGuesses: updatedGuesses });
@@ -57,7 +57,7 @@ export default class GamePage extends Component {
         this.clearCurrentGuess();
     }
 
-    handleNextLocation = async(e) => {
+    handleNextLocation = async (e) => {
         //needs to save location, the location guesses, found state
 
         // const mungedGuess = mungeGuess();
@@ -65,11 +65,13 @@ export default class GamePage extends Component {
         // postLocationGuesses(mungedGuess, this.props.user.token)
         console.log(this.state.mapCoords)
         const updatedLocationIndex = this.state.locationIndex;
-        this.setState({ locationIndex: updatedLocationIndex + 1})
-        if(this.state.locationIndex >= 4) this.props.history.push('/results')
+        this.setState({ locationIndex: updatedLocationIndex + 1 })
+        if (this.state.locationIndex >= 4) this.props.history.push('/results')
 
         //calls getrandomlatlon, getnewlocation, 
         const newLocation = await getNewLocation(this.state.mapCoords, this.state.locationIndex);
+
+        //somewhere here we'll post to sessions
 
         // resets state to default
         this.setState({
