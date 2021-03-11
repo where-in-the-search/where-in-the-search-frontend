@@ -18,3 +18,10 @@ export async function postLocation(location) {
 
     return response.body;
 }
+
+export async function getLocationById(id) {
+    const response = await request
+    .get(`${URL}/locations/${id}`)
+
+return response.body;
+}

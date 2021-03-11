@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import './GamePage.css';
-import { postLocation, postLocationGuesses } from '../Utils/API-Utils.js';
-import { mungeGuess } from '../Utils/Munge-Utils.js';
+// import { postLocation, postLocationGuesses } from '../Utils/API-Utils.js';
+// import { mungeGuess } from '../Utils/Munge-Utils.js';
 import { getNewLocation } from '../Utils/Game-Utils.js'
 
 export default class GamePage extends Component {
@@ -13,8 +13,9 @@ export default class GamePage extends Component {
         image_url: '',
         locationIndex: 0,
         mapLat: '',
-        mapLon: ''
-
+        mapLon: '',
+        mapCoords: [],
+        locationObj: {}
     }
 
 
@@ -22,8 +23,6 @@ export default class GamePage extends Component {
         this.setState({ loading: true });
 
         const newLocation = await getNewLocation(this.state.locationIndex);
-
-        // await postLocation(newLocation);
 
         this.setState(
             {
