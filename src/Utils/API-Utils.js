@@ -25,3 +25,12 @@ export async function getLocationById(id) {
 
     return response.body;
 }
+
+export async function postSession(session, token) {
+    const response = await request
+        .post(`${URL}/api/sessions`)
+        .set('Authorization', token)
+        .send(session)
+
+    return response.body;
+}

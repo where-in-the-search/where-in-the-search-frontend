@@ -34,7 +34,8 @@ export function getSessionInfo() {
     } catch (e) {
         return {
             name: '',
-            character: ''
+            character: '',
+            date: ''
         }
     }
 }

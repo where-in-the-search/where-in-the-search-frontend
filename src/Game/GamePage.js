@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import './GamePage.css';
 // import { mungeGuess } from '../Utils/Munge-Utils.js';
 import { getNewLocation, checkGuess } from '../Utils/Game-Utils.js'
-import { getLocationFromLocalStorage, putLocationInLocalStorage } from '../Utils/LocalStorage-Utils';
+import { putLocationInLocalStorage } from '../Utils/LocalStorage-Utils';
 
 export default class GamePage extends Component {
     state = {
@@ -14,6 +14,7 @@ export default class GamePage extends Component {
         locationIndex: 0,
         mapLat: '',
         mapLon: '',
+        loading: false,
         locationObj: {}
     }
 
