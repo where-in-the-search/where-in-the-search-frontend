@@ -1,8 +1,7 @@
 import React, { Component } from 'react';
 import './GamePage.css';
-import { postLocation, postLocationGuesses } from '../Utils/API-Utils.js';
-import { mungeGuess } from '../Utils/Munge-Utils.js';
-import { getNewLocation } from '../Utils/Game-Utils.js'
+// import { mungeGuess } from '../Utils/Munge-Utils.js';
+import { getNewLocation, checkGuess } from '../Utils/Game-Utils.js'
 
 export default class GamePage extends Component {
     state = {
@@ -11,25 +10,33 @@ export default class GamePage extends Component {
         currentGuess: '',
         guesses: [],
         image_url: '',
-        numberOfLocations: 4,
+        locationIndex: 0,
         mapLat: '',
-        mapLon: ''
+        mapLon: '',
+        mapCoords: [],
+        locationObj: {}
     }
 
 
     componentDidMount = async () => {
         this.setState({ loading: true });
 
-        const newLocation = await getNewLocation();
+        // const newCoords = await getSessionCoordinates();
 
+        const newLocation = await getNewLocation(newCoords, this.state.locationIndex);
         // await postLocation(newLocation);
+
+        const updatedLocationIndex = this.state.locationIndex;
 
         this.setState(
             {
                 image_url: newLocation.image_url,
                 mapLat: newLocation.latitude,
                 mapLon: newLocation.longitude,
-                loading: false
+                loading: false,
+                mapCoords: newCoords,
+                locationObj: newLocation,
+                locationIndex: updatedLocationIndex + 1
             }
         );
     }
@@ -39,11 +46,9 @@ export default class GamePage extends Component {
     clearCurrentGuess = () => this.setState({ currentGuess: '' });
 
     handleSubmitGuess = (e) => {
-        const currentGuesses = this.state.guesses;
-        currentGuesses.push(this.state.currentGuess);
-        this.setState({ guesses: currentGuesses });
-
-        //compareAnswer()
+        const locationGuesses = this.state.guesses;
+        locationGuesses.push(this.state.currentGuess);
+        this.setState({ guesses: locationGuesses, found: checkGuess(this.state.currentGuess, this.state.locationObj) });
 
         const updatedGuesses = this.state.numberOfGuesses - 1;
         this.setState({ numberOfGuesses: updatedGuesses });
@@ -51,14 +56,21 @@ export default class GamePage extends Component {
         this.clearCurrentGuess();
     }
 
-    handleNextLocation = (e) => {
+    handleNextLocation = async (e) => {
         //needs to save location, the location guesses, found state
-        const mungedGuess = mungeGuess();
 
-        postLocationGuesses(mungedGuess, this.props.user.token)
+        // const mungedGuess = mungeGuess();
+
+        // postLocationGuesses(mungedGuess, this.props.user.token)
+        console.log(this.state.mapCoords)
+        const updatedLocationIndex = this.state.locationIndex;
+        this.setState({ locationIndex: updatedLocationIndex + 1 })
+        if (this.state.locationIndex >= 4) this.props.history.push('/results')
 
         //calls getrandomlatlon, getnewlocation, 
-        getNewLocation();
+        const newLocation = await getNewLocation(this.state.mapCoords, this.state.locationIndex);
+
+        //somewhere here we'll post to sessions
 
         // resets state to default
         this.setState({
@@ -66,16 +78,15 @@ export default class GamePage extends Component {
             numberOfGuesses: 4,
             currentGuess: '',
             guesses: [],
-            image_url: '',
+            image_url: newLocation.image_url,
+            mapLat: newLocation.latitude,
+            mapLon: newLocation.longitude,
+            locationObj: newLocation
         })
 
-        //updates number of locations
-        const updatedLocationNumber = this.state.numberOfLocations - 1;
-        this.setState({ numberOfLocations: updatedLocationNumber });
     }
 
     render() {
-
         return (
             <main className="gameMain">
                 <div className="locationWrapper">
