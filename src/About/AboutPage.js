@@ -22,7 +22,8 @@ export default class AboutPage extends Component {
                             alt="anthony" 
                             src={aviator} />
                         <h5 className="aboutH5">Anthony Rosario</h5>
-                        <p className="teamP">about...</p>
+                        <p className="teamP">I am a software developer based in the Bay Area, CA. After spending many years in my comfort zone, I decided to branch out and start traveling.... then covid hit. Once everything opens up I plan on venturing to Portugal
+                        </p>
                         <div className="socialLinkWrapper">
                             <a 
                                 className="teamLink" 
@@ -41,7 +42,8 @@ export default class AboutPage extends Component {
                             alt="devon" 
                             src={smuggler} />
                         <h5 className="aboutH5">Devon Wolfkiel</h5>
-                        <p className="teamP">about...</p>
+                        <p className="teamP">I'm a software developer based in Oregon. I love unraveling mysteries and working through game logic. I like to study history as I travel, and can't think of much of anywhere I wouldn't like to visit.
+</p>
                         <div className="socialLinkWrapper">
                             <a 
                                 className="teamLink" 

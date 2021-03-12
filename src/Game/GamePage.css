@@ -62,8 +62,9 @@
 }
 
 .mapLocation {
-    width: 395px;
-    height: 395px;
+    width: 340px;
+    height: 340px;
+    border-radius: 5px;
 }
 
 .hintsWrapper {

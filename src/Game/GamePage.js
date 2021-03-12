@@ -8,6 +8,7 @@ import '../App.css'
 import zoom_in from '../assets/zoom_in.png';
 import zoom_out from '../assets/zoom_out.png';
 import changle_angle from '../assets/changle_angle.png';
+import changle_angle_reverse from '../assets/changle_angle_reverse.png'
 import picture_border_large from '../assets/picture_border_large.png';
 
 export default class GamePage extends Component {
@@ -179,6 +180,11 @@ export default class GamePage extends Component {
                             className="mapButton"
                             onClick={this.handleViewChange}
                             style={{ backgroundImage: `url(${changle_angle})` }}
+                            ></button>
+                                                <button 
+                            className="mapButton"
+                            onClick={this.handleOppositeViewChange}
+                            style={{ backgroundImage: `url(${changle_angle_reverse})` }}
                             ></button>
                         <button 
                             className="mapButton" 
