@@ -29,19 +29,24 @@ export default class LoginPage extends Component {
     render() {
         return (
             <div>
-            <h3>Login!</h3>
-            { this.state.error && <h3 style={{color:'red'}}>{this.state.error}</h3>}
-            <form onSubmit={this.handleSubmit}>
+                <h3>Login</h3>
+                <p>If you do not have an account yet, one will be created for you.</p>
 
-                <label>Email:
-                    <input value={this.state.email} onChange={this.handleEmailChange} />
-                </label>
-                
-                <label>Password:
-                    <input value={this.state.password} onChange={this.handlePasswordChange} />
-                </label>
-                <button>Submit</button>
-             </form> 
+                { this.state.error && <h3 style={{color:'red'}}>{this.state.error}</h3>}
+
+                <form onSubmit={this.handleSubmit}>
+
+                    <label>Email:
+                        <input value={this.state.email} onChange={this.handleEmailChange} />
+                    </label>
+                    
+                    <label>Password:
+                        <input value={this.state.password} onChange={this.handlePasswordChange} />
+                    </label>
+
+                    <button>Submit</button>
+                    
+                </form> 
             </div>
         )
     }
