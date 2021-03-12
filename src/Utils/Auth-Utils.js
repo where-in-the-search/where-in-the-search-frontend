@@ -1,6 +1,6 @@
 import request from 'superagent';
 
-const URL = 'https://what-in-the-search.herokuapp.com';
+const URL = 'https://else-by-elsewhere.herokuapp.com';
 // const URL = 'http://localhost:3000';
 
 async function getUserAuth(email, password, authRoute) {
