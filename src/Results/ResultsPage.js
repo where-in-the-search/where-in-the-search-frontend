@@ -1,7 +1,8 @@
-import React, { Component } from 'react'
+import React, { Component } from 'react';
 import { getLocationFromLocalStorage, getSessionInfo, clearSessions } from '../Utils/LocalStorage-Utils.js';
 import { postSession } from '../Utils/API-Utils.js';
-import JournalItem from './JournalItem.js'
+import JournalItem from './JournalItem.js';
+import './ResultsPage.css';
 
 export default class ResultsPage extends Component {
     state = {
@@ -56,27 +57,35 @@ export default class ResultsPage extends Component {
 
         return (
 
-            <main>
+            <main className="resultsMain">
                 <div className="feedbackWrapper">
-                    <h3>This is How You Did</h3>
-                    <h4>{this.state.profession} {this.state.name}:</h4>
-                    {/* this is our MVP results page */}
-
+                    <h3 className="resultsH3">Review your journey, {this.state.profession} {this.state.name}:</h3>
                     
-                    <ul className="renderedLocations">
+                    <ul className="locationsWrapper">
                     {this.state.locations.map(location => 
 
-                        <li className="locationResults" key={location.city}>
-                            <img alt={location.city} src={location.image_url}/>
-                            <h3>{location.city}, {location.region},{location.country}</h3>
-                            <p>{location.found
-                            ? <span>You got your bearings, Location Identified!</span>
-                            : <span>Still Travelling, Do you even know where you are right now?</span>}</p>
-                            <p>{location.date}</p>
+                        <li 
+                            className="locationResults" 
+                            key={location.city}>
+
+                            <img 
+                                className="resultsImage"
+                                alt={location.city} 
+                                src={location.image_url}/>
+
+                            <h4
+                                className="resultsH4">
+                                    {location.city},  {location.region},  {location.country}</h4>
+
+                            <p
+                                className="resultsP">{location.found
+                            ? <span className="resultsSpan">You got your bearings, location identified!</span>
+                            : <span className="resultsSpan">Still travelling, do you even know where you are right now?</span>}</p>
+
                         </li>
                     )}
                     </ul>
-                    <button className="newGameBtn" onClick={this.handleNewGame}>Keep Travelling</button>
+                    <button className="newGameButton" onClick={this.handleNewGame}>keep travelling</button>
                 </div>
                 <div className="journalWrapper">
                     <ul>

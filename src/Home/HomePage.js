@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { storeSessionInfo } from '../Utils/LocalStorage-Utils.js';
+import './HomePage.css';
 
 export default class HomePage extends Component {
     state = {
@@ -26,69 +27,88 @@ export default class HomePage extends Component {
 
     render() {
         return (
-            <div>
-                <h3>GeoGuesser!!!</h3>
-                <p>This is a game. You go around the world. And guess things.</p>
+            <main className="homeMain">
+                <h3 className="homeH3">Welcome to Else By Elsewhere,</h3>
+                <h3 className="homeH3">a game that will take you around the world</h3>
+                <p className="homeP">You've been dropped in a random location, can you figure out where you are?</p>
 
                 {!this.props.user || !this.props.user.token
                     ? <button
-                        onClick={this.handleSignIn}>Sign in to start</button>
-                    : <form>
-                        <label>
-                            <span>Your name:</span>
-                            <input
+                        className="homeButton"
+                        onClick={this.handleSignIn}>sign in to play</button>
+                    : <form className="homeForm">
+
+                        <label className="homeLabel">
+                            <p className="homeP">Enter your name:</p>
+                            <input 
+                                className="homeInput"
                                 value={this.state.name}
                                 onChange={this.handleNameChange} />
                         </label>
-                        <label>
-                            <span>Choose your character:</span>
 
-                            <input
-                                type="radio"
-                                name="character"
-                                value="1"
-                                id="ex-librarian"
-                                onChange={this.handleCharacterChange} />
-                            <label htmlFor="ex-librarian">
-                                Ex-Librarian
-                        </label>
+                        <label className="homeLabel">
+                            <p className="homeP">Choose your character:</p>
 
-                            <input
-                                type="radio"
-                                name="character"
-                                value="2"
-                                id="smuggler"
-                                onChange={this.handleCharacterChange} />
-                            <label htmlFor="smuggler">
-                                Smuggler
-                        </label>
+                            <div className="characterWrapper">
+                                <input 
+                                    className="characterInput"
+                                    type="radio"
+                                    name="character"
+                                    value="1"
+                                    id="Ex-Librarian"
+                                    onChange={this.handleCharacterChange} />
+                                <label 
+                                    className="characterLabel"
+                                    htmlFor="Ex-Librarian">
+                                    Ex-Librarian
+                                </label>
 
-                            <input
-                                type="radio"
-                                name="character"
-                                value="3"
-                                id="farmer"
-                                onChange={this.handleCharacterChange} />
-                            <label htmlFor="farmer">
-                                Chard Farmer
-                        </label>
+                                <input 
+                                    className="characterInput"
+                                    type="radio"
+                                    name="character"
+                                    value="2"
+                                    id="Smuggler"
+                                    onChange={this.handleCharacterChange} />
+                                <label 
+                                    className="characterLabel"
+                                    htmlFor="Smuggler">
+                                    Smuggler
+                                </label>
 
-                            <input
-                                type="radio"
-                                name="character"
-                                value="4"
-                                id="pilot"
-                                onChange={this.handleCharacterChange} />
-                            <label htmlFor="pilot">
-                                Pilot
-                        </label>
+                                <input 
+                                    className="characterInput"
+                                    type="radio"
+                                    name="character"
+                                    value="3"
+                                    id="Farmer"
+                                    onChange={this.handleCharacterChange} />
+                                <label 
+                                    className="characterLabel"
+                                    htmlFor="Farmer">
+                                    Chard Farmer
+                                </label>
 
+                                <input 
+                                    className="characterInput"
+                                    type="radio"
+                                    name="character"
+                                    value="4"
+                                    id="Pilot"
+                                    onChange={this.handleCharacterChange} />
+                                <label 
+                                    className="characterLabel"
+                                    htmlFor="Pilot">
+                                    Pilot
+                                </label>
+                            </div>
                         </label>
                         <button
-                            onClick={this.handleSubmit}>Journey forth!</button>
+                            className="homeButton"
+                            onClick={this.handleSubmit}>journey forth!</button>
                     </form>
                 }
-            </div>
+            </main>
         )
     }
 }

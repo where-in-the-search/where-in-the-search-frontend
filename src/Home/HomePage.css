@@ -1,0 +1,91 @@
+.homeMain {
+    padding-top: 50px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.homeH3 {
+    margin: 5px;
+    font-size: 1.5rem;
+    font-weight: 500;
+}
+
+.homeP {
+    margin: 25px;
+    font-size: 1rem;
+}
+
+.homeButton {
+    height: 35px;
+    width: auto;
+    padding: 15px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin: 15px;
+    border: black solid 2px;
+    border-radius: 3px;
+    background-color: transparent;
+    color: black;
+    font-family: 'Lato', sans-serif;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: 0.2s ease-in-out;
+
+}
+
+.homeButton:hover {
+    border: orangered solid 2px;
+    border-radius: 3px;
+    background-color: transparent;
+    color: black;
+}
+
+.homeForm {
+    margin: 25px;
+    padding: 25px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    border: black 2px solid;
+    border-radius: 5px;
+}
+
+.homeInput {
+    height: 20px;
+    width: 200px;
+    padding: 5px;
+    font-family: 'Lato', sans-serif;
+    font-weight: 500;
+    border: black solid 2px;
+    border-radius: 3px;
+}
+
+.characterWrapper {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+}
+
+.characterInput[type='radio'] {
+    display: none;
+}
+
+.characterLabel {
+    margin: 15px;
+    cursor: pointer;
+    transition: 0.2s ease-in-out;
+}
+
+.characterLabel:hover {
+    color: orangered;
+}
+
+.characterInput[type='radio']:checked + .characterLabel {
+    color: teal;
+}

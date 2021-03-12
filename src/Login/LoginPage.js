@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { loginOrSignup } from '../Utils/Auth-Utils.js';
+import './LoginPage.css';
 
 export default class LoginPage extends Component {
     state ={ 
@@ -28,21 +29,39 @@ export default class LoginPage extends Component {
 
     render() {
         return (
-            <div>
-            <h3>Login!</h3>
-            { this.state.error && <h3 style={{color:'red'}}>{this.state.error}</h3>}
-            <form onSubmit={this.handleSubmit}>
+            <main className="loginMain">
 
-                <label>Email:
-                    <input value={this.state.email} onChange={this.handleEmailChange} />
+            <h3 className="loginH3">Check in to begin your adventure!</h3>
+            { this.state.error && 
+                <h3 
+                    className="loginH3" 
+                    style={{color:'red'}}>
+                        {this.state.error}</h3>}
+
+            <form 
+                className="loginForm" 
+                onSubmit={this.handleSubmit}>
+
+                <label className="loginLabel">
+                    <p className="loginP">Email:</p>
+                    <input 
+                        className="loginInput"
+                        value={this.state.email} 
+                        onChange={this.handleEmailChange} />
                 </label>
                 
-                <label>Password:
-                    <input value={this.state.password} onChange={this.handlePasswordChange} />
+                <label className="loginLabel">
+                    <p className="loginP">Password:</p>
+                    <input 
+                        className="loginInput"
+                        value={this.state.password} 
+                        type="password"
+                        onChange={this.handlePasswordChange} />
                 </label>
-                <button>Submit</button>
-             </form> 
-            </div>
+                <button className="loginButton">Submit</button>
+             </form>
+
+            </main>
         )
     }
 }
