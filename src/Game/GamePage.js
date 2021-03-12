@@ -173,17 +173,17 @@ export default class GamePage extends Component {
                     {this.state.divcontainer2 ? <p>The timezone here is {this.state.locationObj.time_zone} GMT</p> : <button onClick={this.handleHintClick2}>Hint 2
                         </button>}
                     {this.state.divcontainer3 ? <p>This symbol of the currency here is {this.state.locationObj.currency_symbol}</p> : <button onClick={this.handleHintClick3}>Hint 3
-                        </button>}
-                     
-
-                    <input
-                        className="guessInput"
-                        value={this.state.currentGuess}
-                        placeholder="Guess this location!"
-                        onChange={this.handleCurrentGuess} />
+                        </button>}               
 
                     {this.state.numberOfGuesses > 0 && !this.state.found
-                        ? <button onClick={this.handleSubmitGuess}>Guess!</button>
+                        ? <div className="guessWrapper">
+                            <input
+                                className="guessInput"
+                                value={this.state.currentGuess}
+                                placeholder="Guess this location!"
+                                onChange={this.handleCurrentGuess} />
+                            <button onClick={this.handleSubmitGuess}>Guess!</button>
+                            </div>
                         : <button className="hiddenButton"></button>
                     } 
 
