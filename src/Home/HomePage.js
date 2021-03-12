@@ -9,13 +9,13 @@ export default class HomePage extends Component {
         profession: '' 
     }
 
-    handleNameChange = (e) => this.setState({ name: e.target.value });
+    handleNameChange = e => this.setState({ name: e.target.value });
 
-    handleCharacterChange = (e) => this.setState({ character_id: e.target.value, profession: e.target.id });
+    handleCharacterChange = e => this.setState({ character_id: e.target.value, profession: e.target.id });
 
-    handleSignIn = (e) => this.props.history.push('/login');
+    handleSignIn = e => this.props.history.push('/login');
 
-    handleSubmit = (e) => {
+    handleSubmit = e => {
         e.preventDefault();
 
         storeSessionInfo(this.state);
@@ -23,16 +23,18 @@ export default class HomePage extends Component {
         this.props.history.push('/game');
     }
 
-
     render() {
         return (
             <div>
-                <h3>GeoGuesser!!!</h3>
-                <p>This is a game. You go around the world. And guess things.</p>
+                <h3>Else by Elsewhere</h3>
+                <p>... how did I get here?</p>
 
                 {!this.props.user || !this.props.user.token
                     ? <button
-                        onClick={this.handleSignIn}>Sign in to start</button>
+                        onClick={this.handleSignIn}>
+                            Sign in to start
+                        </button>
+                    
                     : <form>
                         <label>
                             <span>Your name:</span>
@@ -40,9 +42,9 @@ export default class HomePage extends Component {
                                 value={this.state.name}
                                 onChange={this.handleNameChange} />
                         </label>
+
                         <label>
                             <span>Choose your character:</span>
-
                             <input
                                 type="radio"
                                 name="character"
@@ -51,7 +53,7 @@ export default class HomePage extends Component {
                                 onChange={this.handleCharacterChange} />
                             <label htmlFor="ex-librarian">
                                 Ex-Librarian
-                        </label>
+                            </label>
 
                             <input
                                 type="radio"
@@ -61,7 +63,7 @@ export default class HomePage extends Component {
                                 onChange={this.handleCharacterChange} />
                             <label htmlFor="smuggler">
                                 Smuggler
-                        </label>
+                            </label>
 
                             <input
                                 type="radio"
@@ -71,7 +73,7 @@ export default class HomePage extends Component {
                                 onChange={this.handleCharacterChange} />
                             <label htmlFor="farmer">
                                 Chard Farmer
-                        </label>
+                            </label>
 
                             <input
                                 type="radio"
@@ -81,11 +83,14 @@ export default class HomePage extends Component {
                                 onChange={this.handleCharacterChange} />
                             <label htmlFor="pilot">
                                 Pilot
+                            </label>
                         </label>
-
-                        </label>
+                        
                         <button
-                            onClick={this.handleSubmit}>Journey forth!</button>
+                            onClick={this.handleSubmit}>
+                            Journey forth!
+                        </button>
+                        
                     </form>
                 }
             </div>
