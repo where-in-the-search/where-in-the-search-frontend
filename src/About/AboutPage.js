@@ -22,7 +22,7 @@ export default class AboutPage extends Component {
                             alt="anthony" 
                             src={aviator} />
                         <h5 className="aboutH5">Anthony Rosario</h5>
-                        <p className="teamP">I am a software developer based in the Bay Area, CA. After spending many years in my comfort zone, I decided to branch out and start traveling.... then covid hit. Once everything opens up I plan on venturing to Portugal
+                        <p className="teamP">I am a software developer based in the Bay Area, CA. After spending many years in my comfort zone, I decided to branch out and start traveling.... then covid hit. Once everything opens up I plan on venturing to Portugal.
                         </p>
                         <div className="socialLinkWrapper">
                             <a 
