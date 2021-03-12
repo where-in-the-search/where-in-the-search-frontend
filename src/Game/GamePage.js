@@ -109,7 +109,10 @@ export default class GamePage extends Component {
             image_url: newLocation.image_url,
             mapLat: newLocation.latitude,
             mapLon: newLocation.longitude,
-            locationObj: newLocation
+            locationObj: newLocation,
+            divcontainer1: false,
+            divcontainer2: false,
+            divcontainer3: false
         })
 
     }
@@ -127,27 +130,15 @@ export default class GamePage extends Component {
                         className="mapLocation"
                         alt="map location"
                         src={this.state.image_url} />
-                    
+
+
+                    {this.state.divcontainer1 ? <p>The sun rises in this area at {this.state.locationObj.sunrise} and sets at {this.state.locationObj.sunset}</p> : <button onClick={this.handleHintClick1}>Hint 1
+                        </button>}
+                    {this.state.divcontainer2 ? <p>The timezone here is {this.state.locationObj.time_zone} GMT</p> : <button onClick={this.handleHintClick2}>Hint 2
+                        </button>}
+                    {this.state.divcontainer3 ? <p>This symbol of the currency here is {this.state.locationObj.currency_symbol}</p> : <button onClick={this.handleHintClick3}>Hint 3
+                        </button>}
                      
-                        <div>
-                            <button onClick={this.handleHintClick1}>
-                                {hint1?'hide': 'hint 1'}
-                            </button>
-                        {hint1 && (<div>{this.state.locationObj.sunrise}</div>)}
-                        </div>
-                        <div>
-                            <button onClick={this.handleHintClick2}>
-                                {hint2?'hide': 'hint 1'}
-                            </button>
-                        {hint2 && (<div>{this.state.locationObj.sunset}</div>)}
-                        </div>
-                        <div>
-                            <button onClick={this.handleHintClick3}>
-                                {hint3?'hide': 'hint 1'}
-                            </button>
-                        {hint3 && (<div>{this.state.locationObj.time_zone}</div>)}
-                        </div>
-                    
 
                     <input
                         className="guessInput"
