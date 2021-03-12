@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { getLocationsFromLocalStorage, getSessionInfo, clearSession } from '../Utils/LocalStorage-Utils.js';
-// import { postSession } from '../Utils/API-Utils.js';
 import JournalItem from './JournalItem.js';
 import './ResultsPage.css';
 
@@ -28,23 +27,6 @@ export default class ResultsPage extends Component {
             date: date,
             profession: profession
         })
-
-        /* commented out for possible use if we post to the DB */
-        // const {
-        //     name,
-        //     character_id,
-        //     locations,
-        //     date
-        // } = this.state;
-
-        // const currentSession = {
-        //     name,
-        //     character_id,
-        //     locations,
-        //     date
-        // }
-
-        // await postSession(currentSession, this.props.user.token);
     }
 
     handleNewGame = e => {
