@@ -12,6 +12,7 @@ export function generateMapCoordinates() {
 
 export function getRandomIdOrder() {
     let sessionLocations = [];
+
     while (sessionLocations.length < 5) {
         let randomNumber = Math.ceil(Math.random() * 85);
         if (!sessionLocations.some(n => n === randomNumber)) {
