@@ -12,24 +12,28 @@ export default class AboutPage extends Component {
                     <h4>About the Team</h4>
                     <div>
                         <div>
-                            <img alt="photo" src="https://thumbs.dreamstime.com/b/world-earth-globe-pixel-art-eight-bit-retro-video-game-style-icon-world-earth-globe-eight-bit-pixel-art-game-icon-195967065.jpg" height="60" />
+                            <img alt="anthony" src="https://thumbs.dreamstime.com/b/world-earth-globe-pixel-art-eight-bit-retro-video-game-style-icon-world-earth-globe-eight-bit-pixel-art-game-icon-195967065.jpg" height="60" />
                             <p>Anthony...</p>
-                            <p>My GitHub</p>
+                            <p><a href='https://github.com/anthony-rosario/'>My GitHub</a></p>
+                            <p><a href='https://www.linkedin.com/in/anthony-rosario/'>My LinkedIn</a></p>
                         </div>
                         <div>
-                            <img alt="photo" src="https://thumbs.dreamstime.com/b/world-earth-globe-pixel-art-eight-bit-retro-video-game-style-icon-world-earth-globe-eight-bit-pixel-art-game-icon-195967065.jpg" height="60" />
+                            <img alt="devon" src="https://thumbs.dreamstime.com/b/world-earth-globe-pixel-art-eight-bit-retro-video-game-style-icon-world-earth-globe-eight-bit-pixel-art-game-icon-195967065.jpg" height="60" />
                             <p>Devon...</p>
-                            <p>My GitHub</p>
+                            <p><a href='https://github.com/devon-wolf'>My GitHub</a></p>
+                            <p><a href='https://www.linkedin.com/in/devon-wolfkiel/'>My LinkedIn</a></p>
                         </div>
                         <div>
-                            <img alt="photo" src="https://thumbs.dreamstime.com/b/world-earth-globe-pixel-art-eight-bit-retro-video-game-style-icon-world-earth-globe-eight-bit-pixel-art-game-icon-195967065.jpg" height="60" />
+                            <img alt="soraya" src="https://thumbs.dreamstime.com/b/world-earth-globe-pixel-art-eight-bit-retro-video-game-style-icon-world-earth-globe-eight-bit-pixel-art-game-icon-195967065.jpg" height="60" />
                             <p>Soraya...</p>
-                            <p>My GitHub</p>
+                            <p><a href='https://github.com/sorayabenson'>My GitHub</a></p>
+                            <p><a href='https://www.linkedin.com/in/soraya-benson/'>My LinkedIn</a></p>
                         </div>
                         <div>
-                            <img alt="photo" src="https://thumbs.dreamstime.com/b/world-earth-globe-pixel-art-eight-bit-retro-video-game-style-icon-world-earth-globe-eight-bit-pixel-art-game-icon-195967065.jpg" height="60" />
+                            <img alt="sam" src="https://thumbs.dreamstime.com/b/world-earth-globe-pixel-art-eight-bit-retro-video-game-style-icon-world-earth-globe-eight-bit-pixel-art-game-icon-195967065.jpg" height="60" />
                             <p>My name is Sam and I'm a software engineer based in Portland, OR. I'm a topography enthusiast and have spent many hours exploring different corners of the world via map-apps. I'd love to visit Budapest or Tierra del Fuego in Argentina.</p>
                             <p><a href='https://github.com/sgerpdx'>My GitHub</a></p>
+                            <p><a href='https://www.linkedin.com/in/sam-h-gerber/'>My LinkedIn</a></p>
                         </div>
                     </div>
                 </section>
