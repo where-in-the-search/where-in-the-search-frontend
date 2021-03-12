@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import './GamePage.css';
-import { getNewLocation, checkGuess, changeMapZoom, changeMapAngle, changeImageURL } from '../Utils/Game-Utils.js'
+import { getNewLocation, checkGuess, changeImageURL } from '../Utils/Game-Utils.js'
 import { putLocationInLocalStorage } from '../Utils/LocalStorage-Utils';
 import '../App.css'
 
@@ -27,7 +27,7 @@ export default class GamePage extends Component {
         this.setState({ loading: true });
 
         const newLocation = await getNewLocation(this.state.locationIndex);
-        console.log(newLocation.image_url);
+        
         this.setState(
             {
                 image_url: newLocation.image_url,
@@ -93,7 +93,6 @@ export default class GamePage extends Component {
 
         this.clearCurrentGuess();
     }
-
 
     handleHintClick1 = e => {
         this.setState({divcontainer1: !this.state.divcontainer1})

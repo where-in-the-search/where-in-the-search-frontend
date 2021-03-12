@@ -1,8 +1,6 @@
 import React, { Component } from 'react';
 import './AboutPage.css';
 
-{/* <div>Icons made by <a href="https://www.freepik.com" title="Freepik">Freepik</a> from <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a></div> */ }
-
 export default class AboutPage extends Component {
     render() {
         return (
@@ -42,10 +40,6 @@ export default class AboutPage extends Component {
                     <p>Location images are from the <a href='https://developers.google.com/maps/documentation/streetview/overview'>Google Maps Street View Static</a> API.</p>
 
                     <p>All other location data is from the <a href='https://www.geodatasource.com/web-service'>GeoDataSource</a> API.</p>
-
-                    <p>Character images are from <a href='#'>[random online tool if that's the route we end up going, or whatever credit ends up being relevant]</a></p>
-
-                    <p>[any design libraries/sources we end up using, such as for spinners and other such things] ... flaticon, etc</p>
 
                 </section>
             </div>

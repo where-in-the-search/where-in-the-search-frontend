@@ -11,3 +11,7 @@ The app uses [Google Maps Static Street View](https://developers.google.com/maps
 Locations were chosen based on a large list of semi-arbitrary coordinates collected by the development team, using Google Street View's coverage map as a guide. These coordinates were used to generate the location data, and the location data were used to populate hints and parse user guesses for correctness.
 
 The backend code for Else by Elsewhere can be found [here](https://github.com/where-in-the-search/where-in-the-search-backend).
+
+## Design Resources Used:
+
+<div>Icons made by <a href="https://www.freepik.com" title="Freepik">Freepik</a> from <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a></div>
