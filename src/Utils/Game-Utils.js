@@ -56,13 +56,22 @@ export function checkGuess(guess, locationObj) {
 }
 
 
-export function changeImageURL(image_url, fov, heading) {
+export function changeImageURL(image_url, newFov, newHeading) {
+    const fov = image_url.slice(image_url.indexOf('fov='), image_url.indexOf('&heading'));
     
-    const updatedImage = image_url.replace('fov=80', `fov=${fov}`);
+    const heading = image_url.slice(image_url.indexOf('heading='), image_url.indexOf('&pitch'));
 
-    const updatedBoth = updatedImage.replace('heading=70', `heading=${heading}`);
+    const splitFov = fov.split('=');
+    const updatedFov = splitFov[0] + '=' + newFov;
 
-    return updatedBoth;
+    const splitHeading = heading.split('=');
+    const updatedHeading = splitHeading[0] + '=' + newHeading;
+
+    const newURLFov = image_url.replace(fov, updatedFov);
+
+    const newURLFovAndHeading = newURLFov.replace(heading, updatedHeading);
+
+    return newURLFovAndHeading;
 }
 
 
