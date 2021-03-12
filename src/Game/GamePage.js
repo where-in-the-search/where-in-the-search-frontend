@@ -16,9 +16,9 @@ export default class GamePage extends Component {
         mapLon: '',
         loading: false,
         locationObj: {},
-        divcontainer1: false,
-        divcontainer2: false,
-        divcontainer3: false,
+        hint1: false,
+        hint2: false,
+        hint3: false,
     }
 
     componentDidMount = async () => {
@@ -37,7 +37,6 @@ export default class GamePage extends Component {
                 heading: 70
             }
         );
-        
     }
 
     handleImageURL = () => {
@@ -46,35 +45,43 @@ export default class GamePage extends Component {
         this.setState({
             image_url: changeImageURL(image_url, fov, heading)
         });
-
-        console.log('I UPDATED THE IMAGE URL', this.state.image_url);
     }
 
-    handleFOVIncrease = async (e) => {
+    handleFOVIncrease = async e => {
         const currentFov = this.state.fov;
         await this.setState({ fov: currentFov - 15 });
         this.handleImageURL();
     };
 
-    handleFOVDecrease = async (e) => {
+    handleFOVDecrease = async e => {
         const currentFov = this.state.fov;
         await this.setState({ fov: currentFov + 15 });
         this.handleImageURL();
     };
 
-    handleViewChange = async (e) => {
+    handleViewChange = async e => {
         const currentHeading = this.state.heading;
         await this.setState({ heading: currentHeading + 30 });
         this.handleImageURL();
     };
 
-    handleCurrentGuess = (e) => this.setState({ currentGuess: e.target.value });
+    // no button for this currently, but figured I'd build the function while I was here
+    handleOppositeViewChange = async e => {
+        const currentHeading = this.state.heading;
+        await this.setState({ heading: currentHeading - 30 });
+        this.handleImageURL();
+    }
+
+    handleCurrentGuess = e => this.setState({ currentGuess: e.target.value });
 
     clearCurrentGuess = () => this.setState({ currentGuess: '' });
 
     handleSubmitGuess = e => {
+        // we can probably do away with this 'guesses' array, we didn't end up doing anything with it
         const locationGuesses = this.state.guesses;
+        
         locationGuesses.push(this.state.currentGuess);
+        
         this.setState({ 
             guesses: locationGuesses, 
             found: checkGuess(this.state.currentGuess, this.state.locationObj) 
@@ -86,16 +93,20 @@ export default class GamePage extends Component {
         this.clearCurrentGuess();
     }
 
+    handleHintClick = (target) => {
+        this.setState({ target: !this.state[target] });
+    }
+
     handleHintClick1 = e => {
-        this.setState({divcontainer1: !this.state.divcontainer1})
+        this.setState({hint1: !this.state.hint1})
      }
 
     handleHintClick2 = e => {
-        this.setState({divcontainer2: !this.state.divcontainer2})
+        this.setState({hint2: !this.state.hint2})
      }
 
     handleHintClick3 = e => {
-        this.setState({divcontainer3: !this.state.divcontainer3})
+        this.setState({hint3: !this.state.hint3})
      }
 
     handleNextLocation = async e => {
@@ -134,12 +145,12 @@ export default class GamePage extends Component {
             mapLat: newLocation.latitude,
             mapLon: newLocation.longitude,
             locationObj: newLocation,
-            divcontainer1: false,
-            divcontainer2: false,
-            divcontainer3: false,
+            hint1: false,
+            hint2: false,
+            hint3: false,
             fov: 80,
             heading: 70
-        })
+        });
     }
 
     render() {
@@ -159,12 +170,22 @@ export default class GamePage extends Component {
                         src={this.state.image_url} />
 
 
-                    {this.state.divcontainer1 ? <p>The sun rises in this area at {this.state.locationObj.sunrise} and sets at {this.state.locationObj.sunset}</p> : <button onClick={this.handleHintClick1}>Hint 1
-                        </button>}
-                    {this.state.divcontainer2 ? <p>The timezone here is {this.state.locationObj.time_zone} GMT</p> : <button onClick={this.handleHintClick2}>Hint 2
-                        </button>}
-                    {this.state.divcontainer3 ? <p>This symbol of the currency here is {this.state.locationObj.currency_symbol}</p> : <button onClick={this.handleHintClick3}>Hint 3
-                        </button>}               
+                    {this.state.hint1 
+                        ?   <p>
+                            The sun rises in this area at {this.state.locationObj.sunrise} and sets at {this.state.locationObj.sunset}.</p> 
+                        :   <button onClick={this.handleHintClick1}>
+                            Hint 1
+                            </button>}
+                    {this.state.hint2 
+                        ?   <p>The timezone here is {this.state.locationObj.time_zone} GMT.</p> 
+                        :   <button onClick={this.handleHintClick2}>
+                            Hint 2
+                            </button>}
+                    {this.state.hint3 
+                        ?   <p>This symbol of the currency here is {this.state.locationObj.currency_symbol}.</p> 
+                        :   <button onClick={this.handleHintClick3}>
+                            Hint 3
+                            </button>}    
 
                     {this.state.numberOfGuesses > 0 && !this.state.found
                         ? <div className="guessWrapper">
