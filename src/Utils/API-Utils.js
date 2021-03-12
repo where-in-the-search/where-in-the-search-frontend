@@ -1,6 +1,8 @@
 import request from 'superagent';
 
-const URL = 'https://what-in-the-search.herokuapp.com'; //'http://localhost:3000'; 
+const URL = 'https://else-by-elsewhere.herokuapp.com'; 
+// const URL = 'http://localhost:3000'; 
+
 
 export async function postLocationGuesses(guesses, token) {
     const response = await request
@@ -21,7 +23,16 @@ export async function postLocation(location) {
 
 export async function getLocationById(id) {
     const response = await request
-    .get(`${URL}/locations/${id}`)
+        .get(`${URL}/locations/${id}`)
 
-return response.body;
+    return response.body;
+}
+
+export async function postSession(session, token) {
+    const response = await request
+        .post(`${URL}/api/sessions`)
+        .set('Authorization', token)
+        .send(session)
+
+    return response.body;
 }
