@@ -19,8 +19,6 @@ export default class GamePage extends Component {
         divcontainer1: false,
         divcontainer2: false,
         divcontainer3: false,
-        fov: 80,
-        heading: 70
     }
 
     componentDidMount = async () => {
@@ -34,7 +32,9 @@ export default class GamePage extends Component {
                 mapLat: newLocation.latitude,
                 mapLon: newLocation.longitude,
                 loading: false,
-                locationObj: newLocation
+                locationObj: newLocation,
+                fov: 80,
+                heading: 70
             }
         );
         
@@ -42,39 +42,31 @@ export default class GamePage extends Component {
 
     handleImageURL = () => {
         const { image_url, fov, heading } = this.state;
+
         this.setState({
             image_url: changeImageURL(image_url, fov, heading)
         });
+
         console.log('I UPDATED THE IMAGE URL', this.state.image_url);
     }
 
     handleFOVIncrease = async (e) => {
         const currentFov = this.state.fov;
         await this.setState({ fov: currentFov - 15 });
-        await this.handleImageURL();
-        console.log('FOV INCREASE');
-        // const zoomImage = changeMapZoom(this.state.fov, this.state.mapLat, this.state.mapLon);
-        // this.setState({ image_url: zoomImage });
+        this.handleImageURL();
     };
 
     handleFOVDecrease = async (e) => {
         const currentFov = this.state.fov;
         await this.setState({ fov: currentFov + 15 });
-        await this.handleImageURL();
-        console.log('FOV DECREASE');
-        // const zoomImage = changeMapZoom(this.state.fov, this.state.mapLat, this.state.mapLon);
-        // this.setState({ image_url: zoomImage });
+        this.handleImageURL();
     };
 
     handleViewChange = async (e) => {
         const currentHeading = this.state.heading;
         await this.setState({ heading: currentHeading + 30 });
-        await this.handleImageURL();
-        console.log('ANGLE CHANGE');
-        // const rotatedImage = changeMapAngle(this.state.heading, this.state.mapLat, this.state.mapLon);
-        // this.setState({ image_url: rotatedImage });
+        this.handleImageURL();
     };
-
 
     handleCurrentGuess = (e) => this.setState({ currentGuess: e.target.value });
 
@@ -148,12 +140,11 @@ export default class GamePage extends Component {
             fov: 80,
             heading: 70
         })
-
     }
 
     render() {
         const { city, region, country } = this.state.locationObj;
-        console.log(this.state.locationObj)
+        console.log(this.state.locationObj);
         return (
             <main className="gameMain">
                 <div className="mapControls">
