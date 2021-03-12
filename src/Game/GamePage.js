@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import './GamePage.css';
 import { getNewLocation, checkGuess, changeMapZoom, changeMapAngle } from '../Utils/Game-Utils.js'
 import { putLocationInLocalStorage } from '../Utils/LocalStorage-Utils';
+import '../App.css'
 
 export default class GamePage extends Component {
     state = {
@@ -15,6 +16,9 @@ export default class GamePage extends Component {
         mapLon: '',
         loading: false,
         locationObj: {},
+        divcontainer1: false,
+        divcontainer2: false,
+        divcontainer3: false,
         fov: 80,
         heading: 70
     }
@@ -33,6 +37,7 @@ export default class GamePage extends Component {
                 locationObj: newLocation
             }
         );
+        
     }
 
 
@@ -77,6 +82,19 @@ export default class GamePage extends Component {
         this.clearCurrentGuess();
     }
 
+
+    handleHintClick1 = e => {
+        this.setState({divcontainer1: !this.state.divcontainer1})
+     }
+
+    handleHintClick2 = e => {
+        this.setState({divcontainer2: !this.state.divcontainer2})
+     }
+
+    handleHintClick3 = e => {
+        this.setState({divcontainer3: !this.state.divcontainer3})
+     }
+
     handleNextLocation = async e => {
         const {
             id,
@@ -112,16 +130,20 @@ export default class GamePage extends Component {
             image_url: newLocation.image_url,
             mapLat: newLocation.latitude,
             mapLon: newLocation.longitude,
-            locationObj: newLocation
-        });
+            locationObj: newLocation,
+            divcontainer1: false,
+            divcontainer2: false,
+            divcontainer3: false
+        })
+
     }
 
     render() {
         const { city, region, country } = this.state.locationObj;
-//         console.log(this.state.numberOfGuesses);
-//         console.log(this.state.fov, this.state.mapLat, this.state.mapLon, this.state.heading);
-//         console.log(this.state.image_url);
 
+        const hint1 = this.state.divcontainer1;
+        const hint2 = this.state.divcontainer2;
+        const hint3 = this.state.divcontainer3;
         return (
             <main className="gameMain">
                 <div className="mapControls">
@@ -135,6 +157,15 @@ export default class GamePage extends Component {
                         alt="map location"
                         src={this.state.image_url} />
 
+
+                    {this.state.divcontainer1 ? <p>The sun rises in this area at {this.state.locationObj.sunrise} and sets at {this.state.locationObj.sunset}</p> : <button onClick={this.handleHintClick1}>Hint 1
+                        </button>}
+                    {this.state.divcontainer2 ? <p>The timezone here is {this.state.locationObj.time_zone} GMT</p> : <button onClick={this.handleHintClick2}>Hint 2
+                        </button>}
+                    {this.state.divcontainer3 ? <p>This symbol of the currency here is {this.state.locationObj.currency_symbol}</p> : <button onClick={this.handleHintClick3}>Hint 3
+                        </button>}
+                     
+
                     <input
                         className="guessInput"
                         value={this.state.currentGuess}
@@ -144,19 +175,13 @@ export default class GamePage extends Component {
                     {this.state.numberOfGuesses > 0 && !this.state.found
                         ? <button onClick={this.handleSubmitGuess}>Guess!</button>
                         : <button className="hiddenButton"></button>
-                    }
+                    } 
 
                     {this.state.found && 
                     <p>You've found {city}, {region}, {country}!</p>}
 
                     {!this.state.found && this.state.numberOfGuesses === 0 && 
                     <p>How tragic! This place remains a mystery.</p>}
-
-                    <ul className="hintsWrapper">
-                        <li>hint 1</li>
-                        <li>hint 2</li>
-                        <li>hint 3</li>
-                    </ul>
 
                     {!this.state.found && this.state.numberOfGuesses > 0
                         ? <div className="feedbackWrapper">
