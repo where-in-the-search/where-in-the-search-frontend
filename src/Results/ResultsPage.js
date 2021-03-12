@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import { getLocationFromLocalStorage, getSessionInfo, clearSessions } from '../Utils/LocalStorage-Utils.js';
-import { postSession } from '../Utils/API-Utils.js';
+import { getLocationsFromLocalStorage, getSessionInfo, clearSession } from '../Utils/LocalStorage-Utils.js';
+// import { postSession } from '../Utils/API-Utils.js';
 import JournalItem from './JournalItem.js';
 import './ResultsPage.css';
 

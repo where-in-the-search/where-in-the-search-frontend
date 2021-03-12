@@ -54,8 +54,21 @@ export function checkGuess(guess, locationObj) {
     
     else return false;
 }
+export function changeImageURL(image_url) {
+    const regex = /fov=80/gm;
+    const str = image_url;
+    const subst = `fov=\${fov}`;
+
+    // The substituted value will be contained in the result variable
+    const result = str.replace(regex, subst);
+
+    console.log('Substitution result: ', result);
+    return result;
+}
+
 
 export function changeMapZoom(fov, lat, lon) {
+    // const fov = 80;
     const newImage = `https://maps.googleapis.com/maps/api/streetview?size=400x400&location=${lat},${lon}&fov=${fov}&heading=70&pitch=0&key=${process.env.REACT_APP_GOOGLE_API_KEY}`;
     return newImage;
 }

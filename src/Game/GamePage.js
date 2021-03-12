@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import './GamePage.css';
-import { getNewLocation, checkGuess, changeMapZoom, changeMapAngle } from '../Utils/Game-Utils.js'
+import { getNewLocation, checkGuess, changeMapZoom, changeMapAngle, changeImageURL } from '../Utils/Game-Utils.js'
 import { putLocationInLocalStorage } from '../Utils/LocalStorage-Utils';
 import '../App.css'
 
@@ -37,6 +37,7 @@ export default class GamePage extends Component {
                 locationObj: newLocation
             }
         );
+        changeImageURL(this.state.image_url);
         
     }
 
