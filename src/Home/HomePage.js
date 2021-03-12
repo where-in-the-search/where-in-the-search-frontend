@@ -10,20 +10,19 @@ export default class HomePage extends Component {
         profession: '' 
     }
 
-    handleNameChange = (e) => this.setState({ name: e.target.value });
+    handleNameChange = e => this.setState({ name: e.target.value });
 
-    handleCharacterChange = (e) => this.setState({ character_id: e.target.value, profession: e.target.id });
+    handleCharacterChange = e => this.setState({ character_id: e.target.value, profession: e.target.id });
 
-    handleSignIn = (e) => this.props.history.push('/login');
+    handleSignIn = e => this.props.history.push('/login');
 
-    handleSubmit = (e) => {
+    handleSubmit = e => {
         e.preventDefault();
 
         storeSessionInfo(this.state);
 
         this.props.history.push('/game');
     }
-
 
     render() {
         return (

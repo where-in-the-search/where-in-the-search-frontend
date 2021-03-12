@@ -41,7 +41,7 @@ export function getSessionInfo() {
     }
 }
 
-export function getLocationFromLocalStorage() {
+export function getLocationsFromLocalStorage() {
     const locations = localStorage.getItem(LOCATIONS);
 
     if (locations) {
@@ -49,32 +49,29 @@ export function getLocationFromLocalStorage() {
 
         return parsedLocation;
     } else {
-        const stringEmptyLocationArray = JSON.stringify(emptyLocationArray);
+        const emptyLocationArrayString = JSON.stringify(emptyLocationArray);
 
-        localStorage.setItem(LOCATIONS, stringEmptyLocationArray);
+        localStorage.setItem(LOCATIONS, emptyLocationArrayString);
 
         return emptyLocationArray;
     }
 }
 
 export function putLocationInLocalStorage(location) {
-    const locationArray = getLocationFromLocalStorage();
-    console.log(locationArray);
+    const locationArray = getLocationsFromLocalStorage();
     locationArray.push(location);
     localStorage.setItem(LOCATIONS, JSON.stringify(locationArray));
-    //location id, image_url, city, region, country, found
-
 }
 
-export function clearSessions() {
-    const sessionsObj = {
+export function clearSession() {
+    const sessionObj = {
         name: '',
         character_id: '',
         date: '', 
         profession: ''
     }
 
-    localStorage.setItem(SESSION, JSON.stringify(sessionsObj));
+    localStorage.setItem(SESSION, JSON.stringify(sessionObj));
 
     localStorage.setItem(LOCATIONS, JSON.stringify(emptyLocationArray));
 }

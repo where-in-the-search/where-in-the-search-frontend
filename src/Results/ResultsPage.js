@@ -4,6 +4,7 @@ import { postSession } from '../Utils/API-Utils.js';
 import JournalItem from './JournalItem.js';
 import './ResultsPage.css';
 
+
 export default class ResultsPage extends Component {
     state = {
         locations: [],
@@ -17,18 +18,18 @@ export default class ResultsPage extends Component {
     componentDidMount = async () => {
         this.setState({ loading: true });
 
-        const locationsFound = getLocationFromLocalStorage();
-        const sessionData = getSessionInfo();
+        const { name, character_id, date, profession } = getSessionInfo();
 
         this.setState({
-            name: sessionData.name,
-            character_id: sessionData.character_id,
-            locations: locationsFound,
+            name: name,
+            character_id: character_id,
+            locations: getLocationsFromLocalStorage(),
             loading: false,
-            date: sessionData.date,
-            profession: sessionData.profession
+            date: date,
+            profession: profession
         })
 
+        /* commented out for possible use if we post to the DB */
         // const {
         //     name,
         //     character_id,
@@ -46,24 +47,20 @@ export default class ResultsPage extends Component {
         // await postSession(currentSession, this.props.user.token);
     }
 
-
-    handleNewGame = (e) => {
-        clearSessions();
+    handleNewGame = e => {
+        clearSession();
         this.props.history.push('/');
     }
 
     render() {
-
 
         return (
 
             <main className="resultsMain">
                 <div className="feedbackWrapper">
                     <h3 className="resultsH3">Review your journey, {this.state.profession} {this.state.name}:</h3>
-                    
                     <ul className="locationsWrapper">
                     {this.state.locations.map(location => 
-
                         <li 
                             className="locationResults" 
                             key={location.city}>
@@ -87,6 +84,7 @@ export default class ResultsPage extends Component {
                     </ul>
                     <button className="newGameButton" onClick={this.handleNewGame}>keep travelling</button>
                 </div>
+
                 <div className="journalWrapper">
                     <ul>
                         <JournalItem />

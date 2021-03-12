@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import './GamePage.css';
-// import { mungeGuess } from '../Utils/Munge-Utils.js';
-import { getNewLocation, checkGuess } from '../Utils/Game-Utils.js'
+import { getNewLocation, checkGuess, changeMapZoom, changeMapAngle } from '../Utils/Game-Utils.js'
 import { putLocationInLocalStorage } from '../Utils/LocalStorage-Utils';
 
 export default class GamePage extends Component {
@@ -15,19 +14,15 @@ export default class GamePage extends Component {
         mapLat: '',
         mapLon: '',
         loading: false,
-        locationObj: {}
+        locationObj: {},
+        fov: 80,
+        heading: 70
     }
-
 
     componentDidMount = async () => {
         this.setState({ loading: true });
 
-        // const newCoords = await getSessionCoordinates();
-
         const newLocation = await getNewLocation(this.state.locationIndex);
-        // await postLocation(newLocation);
-
-        // const currentLocationIndex = this.state.locationIndex;
 
         this.setState(
             {
@@ -35,20 +30,46 @@ export default class GamePage extends Component {
                 mapLat: newLocation.latitude,
                 mapLon: newLocation.longitude,
                 loading: false,
-                locationObj: newLocation,
-                // locationIndex: currentLocationIndex + 1
+                locationObj: newLocation
             }
         );
     }
+
+
+
+    handleFOVIncrease = (e) => {
+        const currentFov = this.state.fov;
+        this.setState({ fov: currentFov - 15 });
+        const zoomImage = changeMapZoom(this.state.fov, this.state.mapLat, this.state.mapLon);
+        this.setState({ image_url: zoomImage });
+    };
+
+    handleFOVDecrease = (e) => {
+        const currentFov = this.state.fov;
+        this.setState({ fov: currentFov + 15 });
+        const zoomImage = changeMapZoom(this.state.fov, this.state.mapLat, this.state.mapLon);
+        this.setState({ image_url: zoomImage });
+    };
+
+    handleViewChange = (e) => {
+        const currentHeading = this.state.heading;
+        this.setState({ heading: currentHeading + 60 });
+        const rotatedImage = changeMapAngle(this.state.heading, this.state.mapLat, this.state.mapLon);
+        this.setState({ image_url: rotatedImage });
+    };
+
 
     handleCurrentGuess = (e) => this.setState({ currentGuess: e.target.value });
 
     clearCurrentGuess = () => this.setState({ currentGuess: '' });
 
-    handleSubmitGuess = (e) => {
+    handleSubmitGuess = e => {
         const locationGuesses = this.state.guesses;
         locationGuesses.push(this.state.currentGuess);
-        this.setState({ guesses: locationGuesses, found: checkGuess(this.state.currentGuess, this.state.locationObj) });
+        this.setState({ 
+            guesses: locationGuesses, 
+            found: checkGuess(this.state.currentGuess, this.state.locationObj) 
+        });
 
         const updatedGuesses = this.state.numberOfGuesses - 1;
         this.setState({ numberOfGuesses: updatedGuesses });
@@ -56,26 +77,33 @@ export default class GamePage extends Component {
         this.clearCurrentGuess();
     }
 
-    handleNextLocation = async (e) => {
-        //needs to save location, the location guesses, found state
-        const { id, image_url, city, region, country } = this.state.locationObj;
+    handleNextLocation = async e => {
+        const {
+            id,
+            image_url,
+            city,
+            region,
+            country
+        } = this.state.locationObj;
 
-        const location = { id: id, image_url: image_url, city: city, region: region, country: country, found: this.state.found };
+        const location = {
+            id,
+            image_url,
+            city,
+            region,
+            country,
+            found: this.state.found };
 
         putLocationInLocalStorage(location);
 
-        const updatedLocationIndex = this.state.locationIndex;
-
-        this.setState({ locationIndex: updatedLocationIndex + 1 });
+        const currentLocationIndex = this.state.locationIndex;
+        this.setState({ locationIndex: currentLocationIndex + 1 });
 
         if (this.state.locationIndex >= 4) this.props.history.push('/results');
 
-        //calls getrandomlatlon, getnewlocation, 
         const newLocation = await getNewLocation(this.state.locationIndex);
-
-        //somewhere here we'll post to sessions
-
-        // resets state to default
+        
+        // resets relevant state to default
         this.setState({
             found: false,
             numberOfGuesses: 4,
@@ -85,15 +113,22 @@ export default class GamePage extends Component {
             mapLat: newLocation.latitude,
             mapLon: newLocation.longitude,
             locationObj: newLocation
-        })
-
+        });
     }
 
     render() {
         const { city, region, country } = this.state.locationObj;
-        console.log(this.state.numberOfGuesses);
+//         console.log(this.state.numberOfGuesses);
+//         console.log(this.state.fov, this.state.mapLat, this.state.mapLon, this.state.heading);
+//         console.log(this.state.image_url);
+
         return (
             <main className="gameMain">
+                <div className="mapControls">
+                    <button onClick={this.handleFOVIncrease}>Zoom In</button>
+                    <button onClick={this.handleFOVDecrease}>Zoom Out</button>
+                    <button onClick={this.handleViewChange}>Changle Angle</button>
+                </div>
                 <div className="locationWrapper">
                     <img
                         className="mapLocation"
@@ -111,10 +146,11 @@ export default class GamePage extends Component {
                         : <button className="hiddenButton"></button>
                     }
 
+                    {this.state.found && 
+                    <p>You've found {city}, {region}, {country}!</p>}
 
-                    {this.state.found && <p>You've found {city}, {region}, {country}!</p>}
-
-                    {!this.state.found && this.state.numberOfGuesses === 0 && <p>How tragic! This place remains a mystery.</p>}
+                    {!this.state.found && this.state.numberOfGuesses === 0 && 
+                    <p>How tragic! This place remains a mystery.</p>}
 
                     <ul className="hintsWrapper">
                         <li>hint 1</li>
@@ -125,9 +161,8 @@ export default class GamePage extends Component {
                     {!this.state.found && this.state.numberOfGuesses > 0
                         ? <div className="feedbackWrapper">
                             <h4>Guesses remaining: {this.state.numberOfGuesses}</h4>
-
-
                         </div>
+
                         : <div>
                             <button
                                 onClick={this.handleNextLocation}>
@@ -136,11 +171,7 @@ export default class GamePage extends Component {
                                     : <span> go to next location</span>
                                 }
                             </button>
-
-
                         </div>}
-
-
                 </div>
 
             </main >
