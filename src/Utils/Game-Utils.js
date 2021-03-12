@@ -1,26 +1,15 @@
 import { getLocationById } from './API-Utils.js';
 
-// pretty sure we're no longer using these, but commenting out pending testing in case I've overlooked something
-// export function getRandomInRange(from, to, fixed) {
-//     return (Math.random() * (to - from) + from).toFixed(fixed) * 1;
-// }
-
-// export function generateMapCoordinates() {
-//     const latOne = getRandomInRange(-90, 90, 4);
-//     const lonOne = getRandomInRange(-180, 180, 4);
-//     return { mapLat: latOne, mapLon: lonOne }
-// }
-
 export function getRandomIdOrder() {
     let sessionLocations = [];
-	while (sessionLocations.length < 5) {
-		let randomNumber = Math.ceil(Math.random() * 85);
-		
+    while (sessionLocations.length < 5) {
+        let randomNumber = Math.ceil(Math.random() * 85);
+
         if (!sessionLocations.some(n => n === randomNumber)) {
-			sessionLocations.push(randomNumber);
-		}
-	}
-	return sessionLocations;
+            sessionLocations.push(randomNumber);
+        }
+    }
+    return sessionLocations;
 }
 
 export async function getNewLocation(index) {
@@ -44,6 +33,7 @@ export function checkGuess(guess, locationObj) {
     const upperCaseCity = city.toUpperCase();
     const upperCaseCountry = country.toUpperCase();
 
+
     // series of conditionals to broadly check the guess against the location data
     if (upperCaseGuess === upperCaseCity || 
         upperCaseGuess === upperCaseRegion || 
@@ -63,4 +53,14 @@ export function checkGuess(guess, locationObj) {
     } 
     
     else return false;
+}
+
+export function changeMapZoom(fov, lat, lon) {
+    const newImage = `https://maps.googleapis.com/maps/api/streetview?size=400x400&location=${lat},${lon}&fov=${fov}&heading=70&pitch=0&key=${process.env.REACT_APP_GOOGLE_API_KEY}`;
+    return newImage;
+}
+
+export function changeMapAngle(heading, lat, lon) {
+    const newImage = `https://maps.googleapis.com/maps/api/streetview?size=400x400&location=${lat},${lon}&fov=80&heading=${heading}&pitch=0&key=${process.env.REACT_APP_GOOGLE_API_KEY}`;
+    return newImage;
 }
