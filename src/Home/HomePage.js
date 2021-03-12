@@ -2,6 +2,12 @@ import React, { Component } from 'react';
 import { storeSessionInfo } from '../Utils/LocalStorage-Utils.js';
 import './HomePage.css';
 
+import ex_librarian from '../assets/ex_librarian.png';
+import farmer from '../assets/farmer.png';
+import aviator from '../assets/aviator.png';
+import smuggler from '../assets/smuggler.png';
+
+
 export default class HomePage extends Component {
     state = {
         name: '',
@@ -48,7 +54,8 @@ export default class HomePage extends Component {
                         <label className="homeLabel">
                             <p className="homeP">Choose your character:</p>
 
-                            <div className="characterWrapper">
+                            <div className="charactersWrapper">
+                                
                                 <input 
                                     className="characterInput"
                                     type="radio"
@@ -59,20 +66,13 @@ export default class HomePage extends Component {
                                 <label 
                                     className="characterLabel"
                                     htmlFor="Ex-Librarian">
-                                    Ex-Librarian
-                                </label>
-
-                                <input 
-                                    className="characterInput"
-                                    type="radio"
-                                    name="character"
-                                    value="2"
-                                    id="Smuggler"
-                                    onChange={this.handleCharacterChange} />
-                                <label 
-                                    className="characterLabel"
-                                    htmlFor="Smuggler">
-                                    Smuggler
+                                        <img className="characterImage" alt="Ex-Librarian" src={ex_librarian} />
+                                        <h4 className="characterH4">Ex-Librarian</h4>
+                                        <p className="characterP">Personality: Hopeful</p>
+                                        <p className="characterP">Accessory: A carved yeti</p>
+                                        <p className="characterP">Clothing: Long Coat</p>
+                                        <p className="characterP">Catchphrase: Astound!</p>
+                                        <p className="characterP">Why: Scanned a mystery barcode</p>
                                 </label>
 
                                 <input 
@@ -85,7 +85,13 @@ export default class HomePage extends Component {
                                 <label 
                                     className="characterLabel"
                                     htmlFor="Farmer">
-                                    Chard Farmer
+                                    <img className="characterImage" alt="Farmer" src={farmer} />
+                                        <h4 className="characterH4">Chard Farmer</h4>
+                                        <p className="characterP">Personality: Skeptical</p>
+                                        <p className="characterP">Accessory: A hoe</p>
+                                        <p className="characterP">Clothing: Spotless Sneakers</p>
+                                        <p className="characterP">Catchphrase: Oh jeez</p>
+                                        <p className="characterP">Why: Fell into the wrong chard crowd</p>
                                 </label>
 
                                 <input 
@@ -93,12 +99,37 @@ export default class HomePage extends Component {
                                     type="radio"
                                     name="character"
                                     value="4"
-                                    id="Pilot"
+                                    id="Aviator"
                                     onChange={this.handleCharacterChange} />
                                 <label 
                                     className="characterLabel"
-                                    htmlFor="Pilot">
-                                    Pilot
+                                    htmlFor="Aviator">
+                                    <img className="characterImage" alt="Aviator" src={aviator} />
+                                        <h4 className="characterH4">Aviator</h4>
+                                        <p className="characterP">Personality: Hungry</p>
+                                        <p className="characterP">Accessory: Chips</p>
+                                        <p className="characterP">Clothing: Goggles</p>
+                                        <p className="characterP">Catchphrase: *growls*</p>
+                                        <p className="characterP">Why: Ran out of fuel</p>
+                                </label>
+
+                                <input 
+                                    className="characterInput"
+                                    type="radio"
+                                    name="character"
+                                    value="2"
+                                    id="Smuggler"
+                                    onChange={this.handleCharacterChange} />
+                                <label 
+                                    className="characterLabel"
+                                    htmlFor="Smuggler">
+                                    <img className="characterImage" alt="Smuggler" src={smuggler} />
+                                        <h4 className="characterH4">Smuggler</h4>
+                                        <p className="characterP">Personality: Surly</p>
+                                        <p className="characterP">Accessory: A thimble</p>
+                                        <p className="characterP">Clothing: Well-worn</p>
+                                        <p className="characterP">Catchphrase: #!@;$x...</p>
+                                        <p className="characterP">Why: Ended up in the wrong shipping container</p>
                                 </label>
                             </div>
                         </label>

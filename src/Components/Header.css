@@ -24,7 +24,10 @@ a {
     text-decoration: none;
     color: black;
     transition: 0.2s ease-in-out;
+}
 
+a:hover {
+    color: rgb(239, 83, 0);
 }
 
 .logoutButton {
@@ -34,5 +37,8 @@ a {
     font-size: 1rem;
     cursor: pointer;
     transition: 0.2s ease-in-out;
+}
 
+.logoutButton:hover {
+    color: rgb(239, 83, 0);
 }

@@ -35,7 +35,7 @@ export default class LoginPage extends Component {
             { this.state.error && 
                 <h3 
                     className="loginH3" 
-                    style={{color:'red'}}>
+                    style={{color:'rgb(239, 83, 0)'}}>
                         {this.state.error}</h3>}
 
             <form 
