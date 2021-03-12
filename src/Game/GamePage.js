@@ -40,55 +40,56 @@ export default class GamePage extends Component {
                 mapLat: newLocation.latitude,
                 mapLon: newLocation.longitude,
                 loading: false,
-                locationObj: newLocation
+                locationObj: newLocation,
+                fov: 80,
+                heading: 70
             }
         );
-        
     }
 
     handleImageURL = () => {
         const { image_url, fov, heading } = this.state;
+
         this.setState({
             image_url: changeImageURL(image_url, fov, heading)
         });
-        console.log('I UPDATED THE IMAGE URL', this.state.image_url);
     }
 
-    handleFOVIncrease = async (e) => {
+    handleFOVIncrease = async e => {
         const currentFov = this.state.fov;
         await this.setState({ fov: currentFov - 15 });
-        await this.handleImageURL();
-        console.log('FOV INCREASE');
-        // const zoomImage = changeMapZoom(this.state.fov, this.state.mapLat, this.state.mapLon);
-        // this.setState({ image_url: zoomImage });
+        this.handleImageURL();
     };
 
-    handleFOVDecrease = async (e) => {
+    handleFOVDecrease = async e => {
         const currentFov = this.state.fov;
         await this.setState({ fov: currentFov + 15 });
-        await this.handleImageURL();
-        console.log('FOV DECREASE');
-        // const zoomImage = changeMapZoom(this.state.fov, this.state.mapLat, this.state.mapLon);
-        // this.setState({ image_url: zoomImage });
+        this.handleImageURL();
     };
 
-    handleViewChange = async (e) => {
+    handleViewChange = async e => {
         const currentHeading = this.state.heading;
         await this.setState({ heading: currentHeading + 30 });
-        await this.handleImageURL();
-        console.log('ANGLE CHANGE');
-        // const rotatedImage = changeMapAngle(this.state.heading, this.state.mapLat, this.state.mapLon);
-        // this.setState({ image_url: rotatedImage });
+        this.handleImageURL();
     };
 
+    // no button for this currently, but figured I'd build the function while I was here
+    handleOppositeViewChange = async e => {
+        const currentHeading = this.state.heading;
+        await this.setState({ heading: currentHeading - 30 });
+        this.handleImageURL();
+    }
 
-    handleCurrentGuess = (e) => this.setState({ currentGuess: e.target.value });
+    handleCurrentGuess = e => this.setState({ currentGuess: e.target.value });
 
     clearCurrentGuess = () => this.setState({ currentGuess: '' });
 
     handleSubmitGuess = e => {
+        // we can probably do away with this 'guesses' array, we didn't end up doing anything with it
         const locationGuesses = this.state.guesses;
+        
         locationGuesses.push(this.state.currentGuess);
+        
         this.setState({ 
             guesses: locationGuesses, 
             found: checkGuess(this.state.currentGuess, this.state.locationObj) 
@@ -98,6 +99,10 @@ export default class GamePage extends Component {
         this.setState({ numberOfGuesses: updatedGuesses });
 
         this.clearCurrentGuess();
+    }
+
+    handleHintClick = (target) => {
+        this.setState({ target: !this.state[target] });
     }
 
     handleHintClick1 = e => {
@@ -153,8 +158,7 @@ export default class GamePage extends Component {
             hint3: false,
             fov: 80,
             heading: 70
-        })
-
+        });
     }
 
     render() {
@@ -218,7 +222,6 @@ export default class GamePage extends Component {
                                 onClick={this.handleHintClick3}>Find out the local currency so you can buy a snack
                             </button>}  
                     </div>
-
                 </div>
 
                 <div className="locationGuessWrapper">

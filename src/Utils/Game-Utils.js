@@ -33,7 +33,6 @@ export function checkGuess(guess, locationObj) {
     const upperCaseCity = city.toUpperCase();
     const upperCaseCountry = country.toUpperCase();
 
-
     // series of conditionals to broadly check the guess against the location data
     if (upperCaseGuess === upperCaseCity || 
         upperCaseGuess === upperCaseRegion || 
@@ -55,19 +54,23 @@ export function checkGuess(guess, locationObj) {
     else return false;
 }
 
+export function changeImageURL(image_url, newFov, newHeading) {
+    const fov = image_url.slice(image_url.indexOf('fov='), image_url.indexOf('&heading'));
+    const heading = image_url.slice(image_url.indexOf('heading='), image_url.indexOf('&pitch'));
 
-export function changeImageURL(image_url, fov, heading) {
-    
-    const updatedImage = image_url.replace('fov=80', `fov=${fov}`);
+    const splitFov = fov.split('=');
+    const updatedFov = splitFov[0] + '=' + newFov;
 
-    const updatedBoth = updatedImage.replace('heading=70', `heading=${heading}`);
+    const splitHeading = heading.split('=');
+    const updatedHeading = splitHeading[0] + '=' + newHeading;
 
-    return updatedBoth;
+    const newURLFov = image_url.replace(fov, updatedFov);
+    const newURLFovAndHeading = newURLFov.replace(heading, updatedHeading);
+
+    return newURLFovAndHeading;
 }
 
-
 export function changeMapZoom(fov, lat, lon) {
-    // const fov = 80;
     const newImage = `https://maps.googleapis.com/maps/api/streetview?size=400x400&location=${lat},${lon}&fov=${fov}&heading=70&pitch=0&key=${process.env.REACT_APP_GOOGLE_API_KEY}`;
     return newImage;
 }
