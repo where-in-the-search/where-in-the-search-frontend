@@ -5,3 +5,70 @@
     justify-content: center;
     align-items: center;
 }
+
+.aboutH3 {
+    font-size: 1.5rem;
+    font-weight: 600;
+}
+
+.teamWrapper {
+    width: 80%;
+    height: auto;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    justify-content: center;
+    align-items: center;
+}
+
+.teamDiv {
+    width: 300px;
+    height: 400px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+    padding: 15px;
+    margin: 15px;
+    border: black 5px solid;
+    border-radius: 5px;
+}
+
+.teamImage {
+    margin-top: 20px;
+}
+
+.aboutH5 {
+    font-size: 1.1rem;
+    font-weight: 800;
+    margin: 0px;
+}
+
+.teamP {
+    margin: 0px;
+    width: 90%;
+}
+
+.teamLink:hover {
+    transition: 0.2s ease-in-out;
+    -webkit-filter: drop-shadow(0px 0px 1px rgba(239, 83, 0, 0.8));
+    filter: drop-shadow(0px 0px 1px rgba(239, 83, 0, 0.8));
+}
+
+.aboutH4 {
+    font-size: 1rem;
+    font-weight: 600;
+    margin: 20px;
+}
+
+.aboutP {
+    margin: 10px;
+}
+
+.dataLink {
+    margin: 0px;
+}
+
+.dataLink:hover {
+    color: rgb(239, 83, 0);
+    transition: 0.2s ease-in-out;
+}

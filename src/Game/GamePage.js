@@ -2,7 +2,13 @@ import React, { Component } from 'react';
 import './GamePage.css';
 import { getNewLocation, checkGuess, changeImageURL } from '../Utils/Game-Utils.js'
 import { putLocationInLocalStorage } from '../Utils/LocalStorage-Utils';
+import Spinner from '../Components/Spinner.js';
 import '../App.css'
+
+import zoom_in from '../assets/zoom_in.png';
+import zoom_out from '../assets/zoom_out.png';
+import changle_angle from '../assets/changle_angle.png';
+import picture_border_large from '../assets/picture_border_large.png';
 
 export default class GamePage extends Component {
     state = {
@@ -19,6 +25,8 @@ export default class GamePage extends Component {
         hint1: false,
         hint2: false,
         hint3: false,
+        fov: 80,
+        heading: 70
     }
 
     componentDidMount = async () => {
@@ -158,45 +166,77 @@ export default class GamePage extends Component {
         console.log(this.state.locationObj);
         return (
             <main className="gameMain">
-                <div className="mapControls">
-                    <button onClick={this.handleFOVIncrease}>Zoom In</button>
-                    <button onClick={this.handleFOVDecrease}>Zoom Out</button>
-                    <button onClick={this.handleViewChange}>Changle Angle</button>
-                </div>
+
                 <div className="locationWrapper">
-                    <img
-                        className="mapLocation"
-                        alt="map location"
-                        src={this.state.image_url} />
 
+                    <div className="mapControls">
+                        <button 
+                            className="mapButton"
+                            onClick={this.handleFOVIncrease}
+                            style={{ backgroundImage: `url(${zoom_in})` }}
+                            ></button>
+                        <button 
+                            className="mapButton"
+                            onClick={this.handleViewChange}
+                            style={{ backgroundImage: `url(${changle_angle})` }}
+                            ></button>
+                        <button 
+                            className="mapButton" 
+                            onClick={this.handleFOVDecrease} 
+                            style={{ backgroundImage: `url(${zoom_out})` }}
+                            ></button>
+                    </div>
 
-                    {this.state.hint1 
-                        ?   <p>
-                            The sun rises in this area at {this.state.locationObj.sunrise} and sets at {this.state.locationObj.sunset}.</p> 
-                        :   <button onClick={this.handleHintClick1}>
-                            Hint 1
+                    <div 
+                        className="locationImageWrapper"
+                        style={{ backgroundImage: `url(${picture_border_large})` }}>
+                        {
+                            this.state.loading
+                            ? <Spinner />
+                            : <img
+                                className="mapLocation"
+                                alt="map location"
+                                src={this.state.image_url} />
+                        }
+                    </div> 
+
+                    <div className="hintsWrapper">
+                        <h4 className="hintsH4">Sidequests:</h4>
+                        {this.state.hint1 
+                            ? <p className="hintsP">
+                                The sun rises in this area at {this.state.locationObj.sunrise} and sets at {this.state.locationObj.sunset}</p> 
+                            : <button 
+                                className="hintsButton"
+                                onClick={this.handleHintClick1}>Figure out how much daylight there is
                             </button>}
-                    {this.state.hint2 
-                        ?   <p>The timezone here is {this.state.locationObj.time_zone} GMT.</p> 
-                        :   <button onClick={this.handleHintClick2}>
-                            Hint 2
+                        {this.state.hint2 
+                            ? <p className="hintsP">The timezone here is {this.state.locationObj.time_zone} GMT</p> 
+                            : <button 
+                                className="hintsButton"
+                                onClick={this.handleHintClick2}>Ask a stranger what timezone you're in
                             </button>}
-                    {this.state.hint3 
-                        ?   <p>This symbol of the currency here is {this.state.locationObj.currency_symbol}.</p> 
-                        :   <button onClick={this.handleHintClick3}>
-                            Hint 3
-                            </button>}    
+                        {this.state.hint3 
+                            ? <p className="hintsP">This symbol of the currency here is {this.state.locationObj.currency_symbol}</p> 
+                            : <button 
+                                className="hintsButton"
+                                onClick={this.handleHintClick3}>Find out the local currency so you can buy a snack
+                            </button>}  
+                    </div>
+                </div>
 
-                    {this.state.numberOfGuesses > 0 && !this.state.found
-                        ? <div className="guessWrapper">
+                <div className="locationGuessWrapper">
+                               
+                    {(this.state.numberOfGuesses > 0 && !this.state.found)
+                        && <div className="guessWrapper">
                             <input
                                 className="guessInput"
                                 value={this.state.currentGuess}
                                 placeholder="Guess this location!"
                                 onChange={this.handleCurrentGuess} />
-                            <button onClick={this.handleSubmitGuess}>Guess!</button>
+                            <button 
+                                className="guessButton"
+                                onClick={this.handleSubmitGuess}>Guess!</button>
                             </div>
-                        : <button className="hiddenButton"></button>
                     } 
 
                     {this.state.found && 
@@ -212,6 +252,7 @@ export default class GamePage extends Component {
 
                         : <div>
                             <button
+                                className="guessButton"
                                 onClick={this.handleNextLocation}>
                                 {this.state.locationIndex >= 4
                                     ? <span> go to results </span>

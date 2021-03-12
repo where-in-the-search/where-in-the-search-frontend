@@ -1,7 +1,9 @@
 import React, { Component } from 'react';
 import { getLocationsFromLocalStorage, getSessionInfo, clearSession } from '../Utils/LocalStorage-Utils.js';
 import JournalItem from './JournalItem.js';
+import Spinner from '../Components/Spinner.js';
 import './ResultsPage.css';
+import ResultsWrapper from './ResultsWrapper.js';
 
 
 export default class ResultsPage extends Component {
@@ -37,35 +39,22 @@ export default class ResultsPage extends Component {
 
     render() {
 
+        const locations = this.state.locations;
+
         return (
 
             <main className="resultsMain">
                 <div className="feedbackWrapper">
                     <h3 className="resultsH3">Review your journey, {this.state.profession} {this.state.name}:</h3>
+                    
                     <ul className="locationsWrapper">
-                    {this.state.locations.map(location => 
-                        <li 
-                            className="locationResults" 
-                            key={location.city}>
-
-                            <img 
-                                className="resultsImage"
-                                alt={location.city} 
-                                src={location.image_url}/>
-
-                            <h4
-                                className="resultsH4">
-                                    {location.city},  {location.region},  {location.country}</h4>
-
-                            <p
-                                className="resultsP">{location.found
-                            ? <span className="resultsSpan">You got your bearings, location identified!</span>
-                            : <span className="resultsSpan">Still travelling, do you even know where you are right now?</span>}</p>
-
-                        </li>
-                    )}
+                    {
+                        this.state.loading
+                        ? <Spinner />
+                        : <ResultsWrapper locations={locations}/>
+                    }
                     </ul>
-                    <button className="newGameButton" onClick={this.handleNewGame}>keep travelling</button>
+                    <button className="newGameButton" onClick={this.handleNewGame}>keep traveling</button>
                 </div>
 
                 <div className="journalWrapper">
