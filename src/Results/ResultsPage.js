@@ -31,6 +31,7 @@ export default class ResultsPage extends Component {
 
     handleNewGame = e => {
         clearSession();
+        console.log(localStorage.getItem('LOCATIONS'));
         this.props.history.push('/');
     }
 

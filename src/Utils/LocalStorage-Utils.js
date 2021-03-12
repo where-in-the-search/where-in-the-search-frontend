@@ -3,6 +3,12 @@ const SESSION = 'SESSION';
 const LOCATIONS = 'LOCATIONS';
 
 const emptyLocationArray = [];
+const emptySessionObj = {
+    name: '',
+    character_id: '',
+    date: '', 
+    profession: ''
+}
 
 export function getUserFromLocalStorage() {
     const user = localStorage.getItem(USER);
@@ -32,12 +38,7 @@ export function getSessionInfo() {
         return JSON.parse(session);
 
     } catch (e) {
-        return {
-            name: '',
-            character_id: '',
-            date: '', 
-            profession: ''
-        }
+        return emptySessionObj;
     }
 }
 
@@ -49,9 +50,8 @@ export function getLocationsFromLocalStorage() {
 
         return parsedLocation;
     } else {
-        const emptyLocationArrayString = JSON.stringify(emptyLocationArray);
 
-        localStorage.setItem(LOCATIONS, emptyLocationArrayString);
+        localStorage.setItem(LOCATIONS, JSON.stringify(emptyLocationArray));
 
         return emptyLocationArray;
     }
@@ -64,14 +64,13 @@ export function putLocationInLocalStorage(location) {
 }
 
 export function clearSession() {
-    const sessionObj = {
-        name: '',
-        character_id: '',
-        date: '', 
-        profession: ''
-    }
 
-    localStorage.setItem(SESSION, JSON.stringify(sessionObj));
+    localStorage.setItem(SESSION, JSON.stringify(emptySessionObj));
 
-    localStorage.setItem(LOCATIONS, JSON.stringify(emptyLocationArray));
+    const locationArray = getLocationsFromLocalStorage();
+    while (locationArray.length > 0) {
+        locationArray.pop()
+    };
+
+    localStorage.setItem(LOCATIONS, JSON.stringify(locationArray));
 }
