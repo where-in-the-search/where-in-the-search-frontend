@@ -54,16 +54,13 @@ export function checkGuess(guess, locationObj) {
     
     else return false;
 }
-export function changeImageURL(image_url) {
-    const regex = /fov=80/gm;
-    const str = image_url;
-    const subst = `fov=\${fov}`;
+export function changeImageURL(image_url, fov, heading) {
+    
+    const updatedImage = image_url.replace('fov=80', `fov=${fov}`);
 
-    // The substituted value will be contained in the result variable
-    const result = str.replace(regex, subst);
+    const updatedBoth = updatedImage.replace('heading=70', `heading=${heading}`);
 
-    console.log('Substitution result: ', result);
-    return result;
+    return updatedBoth;
 }
 
 
