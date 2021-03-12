@@ -12,14 +12,14 @@ export function generateMapCoordinates() {
 
 export function getRandomIdOrder() {
     let sessionLocations = [];
-	while (sessionLocations.length < 5) {
-		let randomNumber = Math.ceil(Math.random() * 85);
-		// use a set? guarantees nonduplication - then make it an array
+
+    while (sessionLocations.length < 5) {
+        let randomNumber = Math.ceil(Math.random() * 85);
         if (!sessionLocations.some(n => n === randomNumber)) {
-			sessionLocations.push(randomNumber);
-		}
-	}
-	return sessionLocations;
+            sessionLocations.push(randomNumber);
+        }
+    }
+    return sessionLocations;
 }
 
 export async function getNewLocation(index) {
@@ -45,13 +45,13 @@ export function checkGuess(guess, locationObj) {
     const upperCaseCountry = country.toUpperCase();
 
     if (upperCaseGuess === upperCaseCity || upperCaseGuess === upperCaseRegion || upperCaseGuess === upperCaseCountry) return true;
-    
+
     else if (upperCaseGuess.includes(upperCaseCity) || upperCaseGuess.includes(upperCaseRegion) || upperCaseGuess.includes(upperCaseCountry)) return true;
 
     else if (upperCaseGuess.length >= 3) {
         if (upperCaseCity.includes(upperCaseGuess) || upperCaseRegion.includes(upperCaseGuess) || upperCaseCountry.includes(upperCaseGuess)) return true;
-    } 
-    
+    }
+
     else return false;
 }
 
@@ -72,3 +72,13 @@ export function checkGuess(guess, locationObj) {
 //     ],
 //     image_url: 'nothing.com'
 //   }
+
+export function changeMapZoom(fov, lat, lon) {
+    const newImage = `https://maps.googleapis.com/maps/api/streetview?size=400x400&location=${lat},${lon}&fov=${fov}&heading=70&pitch=0&key=${process.env.REACT_APP_GOOGLE_API_KEY}`;
+    return newImage;
+}
+
+export function changeMapAngle(heading, lat, lon) {
+    const newImage = `https://maps.googleapis.com/maps/api/streetview?size=400x400&location=${lat},${lon}&fov=80&heading=${heading}&pitch=0&key=${process.env.REACT_APP_GOOGLE_API_KEY}`;
+    return newImage;
+}

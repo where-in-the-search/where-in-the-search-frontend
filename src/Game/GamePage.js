@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import './GamePage.css';
 // import { mungeGuess } from '../Utils/Munge-Utils.js';
-import { getNewLocation, checkGuess } from '../Utils/Game-Utils.js'
+import { getNewLocation, checkGuess, changeMapZoom, changeMapAngle } from '../Utils/Game-Utils.js'
 import { putLocationInLocalStorage } from '../Utils/LocalStorage-Utils';
 
 export default class GamePage extends Component {
@@ -15,7 +15,9 @@ export default class GamePage extends Component {
         mapLat: '',
         mapLon: '',
         loading: false,
-        locationObj: {}
+        locationObj: {},
+        fov: 80,
+        heading: 70
     }
 
 
@@ -40,6 +42,29 @@ export default class GamePage extends Component {
             }
         );
     }
+
+
+    handleFOVIncrease = (e) => {
+        const currentFov = this.state.fov;
+        this.setState({ fov: currentFov - 15 });
+        const zoomImage = changeMapZoom(this.state.fov, this.state.mapLat, this.state.mapLon);
+        this.setState({ image_url: zoomImage });
+    };
+
+    handleFOVDecrease = (e) => {
+        const currentFov = this.state.fov;
+        this.setState({ fov: currentFov + 15 });
+        const zoomImage = changeMapZoom(this.state.fov, this.state.mapLat, this.state.mapLon);
+        this.setState({ image_url: zoomImage });
+    };
+
+    handleViewChange = (e) => {
+        const currentHeading = this.state.heading;
+        this.setState({ heading: currentHeading + 60 });
+        const rotatedImage = changeMapAngle(this.state.heading, this.state.mapLat, this.state.mapLon);
+        this.setState({ image_url: rotatedImage });
+    };
+
 
     handleCurrentGuess = (e) => this.setState({ currentGuess: e.target.value });
 
@@ -92,8 +117,15 @@ export default class GamePage extends Component {
     render() {
         const { city, region, country } = this.state.locationObj;
         console.log(this.state.numberOfGuesses);
+        console.log(this.state.fov, this.state.mapLat, this.state.mapLon, this.state.heading);
+        console.log(this.state.image_url);
         return (
             <main className="gameMain">
+                <div className="mapControls">
+                    <button onClick={this.handleFOVIncrease}>Zoom In</button>
+                    <button onClick={this.handleFOVDecrease}>Zoom Out</button>
+                    <button onClick={this.handleViewChange}>Changle Angle</button>
+                </div>
                 <div className="locationWrapper">
                     <img
                         className="mapLocation"
