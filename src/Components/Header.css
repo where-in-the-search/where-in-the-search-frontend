@@ -1,0 +1,38 @@
+header {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.linkWrapper {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+}
+
+.headerTitle {
+    font-family: 'Oswald', sans-serif;
+    font-weight: 700;
+    font-size: 4rem;
+    margin: 10px;
+}
+
+a {
+    margin: 15px;
+    text-decoration: none;
+    color: black;
+    transition: 0.2s ease-in-out;
+
+}
+
+.logoutButton {
+    background-color: transparent;
+    border: none;
+    font-family: 'Lato', sans-serif;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: 0.2s ease-in-out;
+
+}
