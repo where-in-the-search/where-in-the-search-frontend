@@ -73,6 +73,11 @@ export function checkGuess(guess, locationObj) {
 //   }
 
 export function changeMapZoom(fov, lat, lon) {
-    const newImage = `https://maps.googleapis.com/maps/api/streetview?size=400x400&location=${lat},${lon}&fov=${fov}&heading=80&heading=70&pitch=0&key=${process.env.REACT_APP_GOOGLE_API_KEY}`;
+    const newImage = `https://maps.googleapis.com/maps/api/streetview?size=400x400&location=${lat},${lon}&fov=${fov}&heading=70&pitch=0&key=${process.env.REACT_APP_GOOGLE_API_KEY}`;
+    return newImage;
+}
+
+export function changeMapAngle(heading, lat, lon) {
+    const newImage = `https://maps.googleapis.com/maps/api/streetview?size=400x400&location=${lat},${lon}&fov=80&heading=${heading}&pitch=0&key=${process.env.REACT_APP_GOOGLE_API_KEY}`;
     return newImage;
 }
