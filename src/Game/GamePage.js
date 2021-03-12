@@ -42,12 +42,6 @@ export default class GamePage extends Component {
 
     handleImageURL = () => {
         const { image_url, fov, heading } = this.state;
-        
-        console.log(
-            'IMAGE URL:', image_url,
-            'FOV:', fov,
-            'HEADING', heading
-        );
 
         this.setState({
             image_url: changeImageURL(image_url, fov, heading)
@@ -60,27 +54,18 @@ export default class GamePage extends Component {
         const currentFov = this.state.fov;
         await this.setState({ fov: currentFov - 15 });
         this.handleImageURL();
-        console.log('FOV INCREASE');
-        // const zoomImage = changeMapZoom(this.state.fov, this.state.mapLat, this.state.mapLon);
-        // this.setState({ image_url: zoomImage });
     };
 
     handleFOVDecrease = async (e) => {
         const currentFov = this.state.fov;
         await this.setState({ fov: currentFov + 15 });
         this.handleImageURL();
-        console.log('FOV DECREASE');
-        // const zoomImage = changeMapZoom(this.state.fov, this.state.mapLat, this.state.mapLon);
-        // this.setState({ image_url: zoomImage });
     };
 
     handleViewChange = async (e) => {
         const currentHeading = this.state.heading;
         await this.setState({ heading: currentHeading + 30 });
         this.handleImageURL();
-        console.log('ANGLE CHANGE');
-        // const rotatedImage = changeMapAngle(this.state.heading, this.state.mapLat, this.state.mapLon);
-        // this.setState({ image_url: rotatedImage });
     };
 
     handleCurrentGuess = (e) => this.setState({ currentGuess: e.target.value });
