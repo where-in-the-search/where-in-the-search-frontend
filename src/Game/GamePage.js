@@ -3,6 +3,7 @@ import './GamePage.css';
 // import { mungeGuess } from '../Utils/Munge-Utils.js';
 import { getNewLocation, checkGuess } from '../Utils/Game-Utils.js'
 import { putLocationInLocalStorage } from '../Utils/LocalStorage-Utils';
+import '../App.css'
 
 export default class GamePage extends Component {
     state = {
@@ -15,8 +16,13 @@ export default class GamePage extends Component {
         mapLat: '',
         mapLon: '',
         loading: false,
-        locationObj: {}
+        locationObj: {},
+        divcontainer1: false,
+        divcontainer2: false,
+        divcontainer3: false
     }
+
+
 
 
     componentDidMount = async () => {
@@ -39,6 +45,7 @@ export default class GamePage extends Component {
                 // locationIndex: currentLocationIndex + 1
             }
         );
+        
     }
 
     handleCurrentGuess = (e) => this.setState({ currentGuess: e.target.value });
@@ -55,6 +62,24 @@ export default class GamePage extends Component {
 
         this.clearCurrentGuess();
     }
+
+
+    handleHintClick1 = e => {
+        this.setState({divcontainer1: !this.state.divcontainer1})
+     }
+
+
+    handleHintClick2 = e => {
+        this.setState({divcontainer2: !this.state.divcontainer2})
+     }
+
+
+
+    handleHintClick3 = e => {
+        this.setState({divcontainer3: !this.state.divcontainer3})
+     }
+
+
 
     handleNextLocation = async (e) => {
         //needs to save location, the location guesses, found state
@@ -91,7 +116,10 @@ export default class GamePage extends Component {
 
     render() {
         const { city, region, country } = this.state.locationObj;
-        console.log(this.state.numberOfGuesses);
+        const hint1 = this.state.divcontainer1;
+        const hint2 = this.state.divcontainer2;
+        const hint3 = this.state.divcontainer3;
+         console.log(this.state.locationObj)
         return (
             <main className="gameMain">
                 <div className="locationWrapper">
@@ -99,6 +127,27 @@ export default class GamePage extends Component {
                         className="mapLocation"
                         alt="map location"
                         src={this.state.image_url} />
+                    
+                     
+                        <div>
+                            <button onClick={this.handleHintClick1}>
+                                {hint1?'hide': 'hint 1'}
+                            </button>
+                        {hint1 && (<div>{this.state.locationObj.sunrise}</div>)}
+                        </div>
+                        <div>
+                            <button onClick={this.handleHintClick2}>
+                                {hint2?'hide': 'hint 1'}
+                            </button>
+                        {hint2 && (<div>{this.state.locationObj.sunset}</div>)}
+                        </div>
+                        <div>
+                            <button onClick={this.handleHintClick3}>
+                                {hint3?'hide': 'hint 1'}
+                            </button>
+                        {hint3 && (<div>{this.state.locationObj.time_zone}</div>)}
+                        </div>
+                    
 
                     <input
                         className="guessInput"
@@ -109,18 +158,12 @@ export default class GamePage extends Component {
                     {this.state.numberOfGuesses > 0 && !this.state.found
                         ? <button onClick={this.handleSubmitGuess}>Guess!</button>
                         : <button className="hiddenButton"></button>
-                    }
+                    } 
 
 
                     {this.state.found && <p>You've found {city}, {region}, {country}!</p>}
 
                     {!this.state.found && this.state.numberOfGuesses === 0 && <p>How tragic! This place remains a mystery.</p>}
-
-                    <ul className="hintsWrapper">
-                        <li>hint 1</li>
-                        <li>hint 2</li>
-                        <li>hint 3</li>
-                    </ul>
 
                     {!this.state.found && this.state.numberOfGuesses > 0
                         ? <div className="feedbackWrapper">

@@ -26,7 +26,7 @@ export async function getNewLocation(index) {
     const sessionLocations = getRandomIdOrder();
 
     const locationObject = await getLocationById(sessionLocations[index])
-    console.log(locationObject);
+
     return locationObject;
 }
 
