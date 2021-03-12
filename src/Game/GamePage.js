@@ -145,7 +145,9 @@ export default class GamePage extends Component {
             locationObj: newLocation,
             divcontainer1: false,
             divcontainer2: false,
-            divcontainer3: false
+            divcontainer3: false,
+            fov: 80,
+            heading: 70
         })
 
     }
