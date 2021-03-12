@@ -152,7 +152,7 @@ export default class GamePage extends Component {
 
     render() {
         const { city, region, country } = this.state.locationObj;
-
+        console.log(this.state.locationObj)
         return (
             <main className="gameMain">
                 <div className="mapControls">
@@ -178,7 +178,7 @@ export default class GamePage extends Component {
                     <input
                         className="guessInput"
                         value={this.state.currentGuess}
-                        placeholder="guess here!"
+                        placeholder="Guess this location!"
                         onChange={this.handleCurrentGuess} />
 
                     {this.state.numberOfGuesses > 0 && !this.state.found

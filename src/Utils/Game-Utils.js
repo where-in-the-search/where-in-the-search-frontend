@@ -54,6 +54,8 @@ export function checkGuess(guess, locationObj) {
     
     else return false;
 }
+
+
 export function changeImageURL(image_url, fov, heading) {
     
     const updatedImage = image_url.replace('fov=80', `fov=${fov}`);
