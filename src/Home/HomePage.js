@@ -12,6 +12,7 @@ export default class HomePage extends Component {
     state = {
         name: '',
         character_id: '',
+        // nice job finding this method
         date: new Date().toDateString(),
         profession: '' 
     }
@@ -55,7 +56,6 @@ export default class HomePage extends Component {
                             <p className="homeP">Choose your character:</p>
 
                             <div className="charactersWrapper">
-                                
                                 <input 
                                     className="characterInput"
                                     type="radio"
@@ -63,6 +63,10 @@ export default class HomePage extends Component {
                                     value="1"
                                     id="Ex-Librarian"
                                     onChange={this.handleCharacterChange} />
+                                    {/* seems like these characters should live in json somewhere, to be iterated over and mapped into <Character /> components for DRYness. The next 70 or so lines could be almost entiedly replaced by:
+                                    
+                                    characters.map(character => <Character character={character} />)
+                                    */}
                                 <label 
                                     className="characterLabel"
                                     htmlFor="Ex-Librarian">

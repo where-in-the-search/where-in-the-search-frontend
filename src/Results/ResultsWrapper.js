@@ -4,7 +4,10 @@ import picture_border from '../assets/picture_border.png';
 export default class ResultsWrapper extends Component {
     render() {
        
-        const resultsWrapper= this.props.locations.map(location => 
+        return (
+            <>
+            {/* interesting! why call this a wrapper? usually wrappers imply  that they're holding onto state, to pass onto 'wrapped' components as props */}
+            { this.props.locations.map(location => 
             <li 
                 className="locationResults" 
                 key={location.city}>
@@ -27,12 +30,9 @@ export default class ResultsWrapper extends Component {
                 ? <span className="resultsSpan">You got your bearings, location identified!</span>
                 : <span className="resultsSpan">Still traveling, do you even know where you are right now?</span>}</p>
 
-            </li>)
-
-        return (
-            <>
-                {resultsWrapper}
-            </>
+            </li> )
+            }
+        </>
         )
     }
 }
