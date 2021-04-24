@@ -19,15 +19,16 @@ export default class ResultsPage extends Component {
     componentDidMount = async () => {
         this.setState({ loading: true });
 
+        // loving this destructure out of a function call!
         const { name, character_id, date, profession } = getSessionInfo();
 
         this.setState({
-            name: name,
-            character_id: character_id,
+            name,
+            character_id,
             locations: getLocationsFromLocalStorage(),
             loading: false,
-            date: date,
-            profession: profession
+            date,
+            profession
         })
     }
 

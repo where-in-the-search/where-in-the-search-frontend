@@ -1,3 +1,5 @@
+// i'd prefer non-component file names to be in kabob-case, to clarify intent
+
 import request from 'superagent';
 
 
@@ -14,11 +16,12 @@ async function getUserAuth(email, password, authRoute) {
 
 export async function loginOrSignup(email, password) {
 	let response = {};
+	// coooool function! Usually I like to see actual errors in the catch block, but I gotta admit, this is smart stuff!
 	try {
 		response = await getUserAuth(email, password, 'auth/signin');
-	}
-	catch(e) {
+	} catch(e) {
 		response = await getUserAuth(email, password, 'auth/signup');
 	}
+
 	return response;
 }

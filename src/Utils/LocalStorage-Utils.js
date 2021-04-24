@@ -35,6 +35,7 @@ export function storeSessionInfo(session) {
 export function getSessionInfo() {
     const session = localStorage.getItem(SESSION);
     try {
+        // super cool! loving this use of catch blocks to do actual logic!
         return JSON.parse(session);
 
     } catch (e) {
@@ -50,7 +51,6 @@ export function getLocationsFromLocalStorage() {
 
         return parsedLocation;
     } else {
-
         localStorage.setItem(LOCATIONS, JSON.stringify(emptyLocationArray));
 
         return emptyLocationArray;

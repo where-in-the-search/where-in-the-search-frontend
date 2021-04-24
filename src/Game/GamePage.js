@@ -1,3 +1,5 @@
+// this important and huge comopnent should probably be broken into multiple files
+
 import React, { Component } from 'react';
 import './GamePage.css';
 import { getNewLocation, checkGuess, changeImageURL } from '../Utils/Game-Utils.js'
@@ -38,6 +40,7 @@ export default class GamePage extends Component {
         this.setState(
             {
                 image_url: newLocation.image_url,
+                // if you hadn't changed the keys in state, you could have spread the response here
                 mapLat: newLocation.latitude,
                 mapLon: newLocation.longitude,
                 loading: false,
@@ -56,6 +59,7 @@ export default class GamePage extends Component {
         });
     }
 
+    // seems like these four methods do a lot of the same stuff, and could have been abstracted into a single function with more parameters
     handleFOVIncrease = async e => {
         const currentFov = this.state.fov;
         await this.setState({ fov: currentFov - 15 });
@@ -102,6 +106,8 @@ export default class GamePage extends Component {
         this.clearCurrentGuess();
     }
 
+    // you were on the right track with this function-- you just needed to make anonymous functions in the onClick prop that identified the correct key
+    // onClick={() => handleHintClick(hintKey) }
     handleHintClick = (target) => {
         this.setState({ target: !this.state[target] });
     }
@@ -169,7 +175,7 @@ export default class GamePage extends Component {
             <main className="gameMain">
 
                 <div className="locationWrapper">
-
+                     {/* might be better abstracted into <MapButtons /> with some props */}
                     <div className="mapControls">
                         <button 
                             className="mapButton"
@@ -207,6 +213,7 @@ export default class GamePage extends Component {
                     </div> 
 
                     <div className="hintsWrapper">
+                        {/* might be better as <HintList /> with some props */}
                         <h4 className="hintsH4">Sidequests:</h4>
                         {this.state.hint1 
                             ? <p className="hintsP">
@@ -229,7 +236,7 @@ export default class GamePage extends Component {
                             </button>}  
                     </div>
                 </div>
-
+                {/* might be better abstracted into <LocationGuess /> with some props */}
                 <div className="locationGuessWrapper">
                                
                     {(this.state.numberOfGuesses > 0 && !this.state.found)
@@ -251,6 +258,7 @@ export default class GamePage extends Component {
                     {!this.state.found && this.state.numberOfGuesses === 0 && 
                     <p>How tragic! This place remains a mystery.</p>}
 
+                     {/* might be better abstracted into <FeedbackOrGuess /> with some props */}
                     {!this.state.found && this.state.numberOfGuesses > 0
                         ? <div className="feedbackWrapper">
                             <h4>Guesses remaining: {this.state.numberOfGuesses}</h4>

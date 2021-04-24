@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import './AboutPage.css';
+// nice image importing!
 import github from '../assets/github.png';
 import linkedin from '../assets/linkedin.png';
 import farmer from '../assets/farmer.png';

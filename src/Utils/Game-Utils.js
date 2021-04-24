@@ -1,3 +1,4 @@
+// i'd prefer non-component file names to be in kabob-case, to clarify intent
 import { getLocationById } from './API-Utils.js';
 
 export function getRandomIdOrder() {
@@ -51,10 +52,11 @@ export function checkGuess(guess, locationObj) {
             return true;
     } 
     
-    else return false;
+    return false;
 }
 
 export function changeImageURL(image_url, newFov, newHeading) {
+    // woaah. some serious munging happening here! nice job plodding through the thick of it!
     const fov = image_url.slice(image_url.indexOf('fov='), image_url.indexOf('&heading'));
     const heading = image_url.slice(image_url.indexOf('heading='), image_url.indexOf('&pitch'));
 
@@ -70,12 +72,14 @@ export function changeImageURL(image_url, newFov, newHeading) {
     return newURLFovAndHeading;
 }
 
+const GOOGLE_URL = 'https://maps.googleapis.com/maps/api/streetview?size=400x400&location';
+
 export function changeMapZoom(fov, lat, lon) {
-    const newImage = `https://maps.googleapis.com/maps/api/streetview?size=400x400&location=${lat},${lon}&fov=${fov}&heading=70&pitch=0&key=${process.env.REACT_APP_GOOGLE_API_KEY}`;
+    const newImage = `${GOOGLE_URL}=${lat},${lon}&fov=${fov}&heading=70&pitch=0&key=${process.env.REACT_APP_GOOGLE_API_KEY}`;
     return newImage;
 }
 
 export function changeMapAngle(heading, lat, lon) {
-    const newImage = `https://maps.googleapis.com/maps/api/streetview?size=400x400&location=${lat},${lon}&fov=80&heading=${heading}&pitch=0&key=${process.env.REACT_APP_GOOGLE_API_KEY}`;
+    const newImage = `${GOOGLE_URL}=${lat},${lon}&fov=80&heading=${heading}&pitch=0&key=${process.env.REACT_APP_GOOGLE_API_KEY}`;
     return newImage;
 }
