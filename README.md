@@ -12,6 +12,13 @@ Locations were chosen based on a large list of semi-arbitrary coordinates collec
 
 The backend code for Else by Elsewhere can be found [here](https://github.com/where-in-the-search/where-in-the-search-backend).
 
+## Created By:
+
+- [Devon Wolfkiel](https://github.com/devon-wolf)
+- [Sam Gerber](https://github.com/sgerpdx)
+- [Anthony Rosario](https://github.com/Anthony-Rosario)
+- [Soraya Benson](https://github.com/sorayabenson)
+
 ## Design Resources Used:
 
 <div>Icons made by <a href="https://www.freepik.com" title="Freepik">Freepik</a> from <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a></div>
